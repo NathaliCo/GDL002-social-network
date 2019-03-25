@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Londrina+Solid');
+
+*{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-image: url(../images/FondoHuellitas.png);
+    background-position: center center;
+    height: auto;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+ul {
+    text-align: center;
+    list-style-position: inside;
+}
+
+.welcomeImg {
+    height: 12rem;
+    width: 25rem;
+}
+
+.logoImg {
+    height: 8rem;
+    width: 15rem;
+}
+
+.yellowText, .yellowTextSpacing {
+    margin-top: 2rem;
+    font-size: 1.8rem;
+    color: #070707;
+    font-family: 'Londrina Solid', cursive;
+}
+
+.yellowTextSpacing{
+    letter-spacing: 0.2rem;
+    font-size: 3rem;
+    color: #892F85;
+
+}
+
+
+label{
+    color: #070707;
+    font-size: 2rem;
+}
+
+input {
+    background-color: #E0E0E0 ;
+    font-size: 1.1rem;
+    width: 15rem;
+    height: 1.2rem;
+}
+.createAccount, .logIn, .btnCreateAccount, .btnLogIn {
+background-color: #D6B534;
+font-size: 1.3rem;
+color: #F2F2F2;
+border-radius: 20px;
+padding: auto;
+
+}
+
+.createAccount, .logIn{
+    margin-right:3rem;
+    margin-left: 3.1rem;
+}
+
+.btnCreateAccount,.btnLogIn  {
+    margin: 2.0rem;
+}
+
+header{
+    background-color: #00E1C6;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    padding: 1rem;
+    font-size: 2rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+footer{
+    background-color: #00E1C6;
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    position: fixed;
+}
+
+.createAccountPage{
+    display: flex;
+    flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
