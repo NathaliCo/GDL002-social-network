@@ -5,6 +5,8 @@ document.querySelector(".createAccountPage").style.display = "none";
 document.querySelector(".logInPage").style.display = "none";
 document.querySelector(".aboutUs").style.display = "none";
 document.querySelector(".modal ").style.display = "none";
+document.querySelector(".secondHeader").style.display = "none";
+document.querySelector(".secondFooter").style.display = "none";
 
 
 //Función que llama al formulario para crear una nueva cuenta
@@ -24,96 +26,22 @@ document.querySelector(".logIn").addEventListener("click", logIn);
 
 //Función que se ejecuta al dar click en crear una nueva cuenta
 function createNewAccount(){
-  const name =document.querySelector(".createAccountName").value;
-const email = document.querySelector(".createAccountEmail").value;
-const password = document.querySelector(".createAccountPassword").value;
-  //Las validaciones que necesitas hacer
-firebase.auth().createUserWithEmailAndPassword(email, password).then (function(){
-  verify();
-    })
-.catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  modal(errorMessage);
-  console.log("error createacount");
-  document.querySelector(".btn").setAttribute("class", "btnCreateAccount modalBtn");
-  // ...
-});
- }
-
+  //Obtenemos los valores de los inputs
+    const name =document.querySelector(".createAccountName").value;
+    const email = document.querySelector(".createAccountEmail").value;
+    const password = document.querySelector(".createAccountPassword").value;
+    firebaseNewAccount(email, password);
+}
 document.querySelector(".btnCreateAccount").addEventListener("click", createNewAccount);
+
 //Función que se ejecuta al dar click en el botón de entrar
 function btnLogIn(){
- 
+  //Obtenemos los valores de los inputs
   const email= document.querySelector(".logInEmail").value;
   const password= document.querySelector(".logInPassword").value;
-  firebase.auth().signInWithEmailAndPassword(email, password).then (function(){
-    observer();
-    const message= "Redireccionando";
-    modal(message);
-    console.log(user);
-      })
-  .catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    modal(errorMessage);
-    console.log("error log in");
-
-    // ...
-    document.querySelector(".insideFirstPage").style.display = "none";
-  });
+  firebaseLogIn(email,password);
 }
-
 document.querySelector(".btnLogIn").addEventListener("click", btnLogIn);
-
-//Función que permite saber si el usurio está activo, es decir que está dentro de su cuenta y abre la pantallad e la red social
-function observer(){
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      activeUser (user);
-      // User is signed in.
-      var displayName = user.displayName;
-      console.log(user);
-      console.log(user.emailVerified);
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
-      // ...
-    } else {
-      // User is signed out.
-      // ...
-    }
-  });
-}
-
-//Función que desactiva los formularios de registro y de inicio de sesión y activa la pantalla de la red social
-function activeUser (user){
-  user = user;
- if (user.emailVerified){
- document.querySelector(".insideFirstPage").style.display = "block";
- document.querySelector(".logInPage").style.display = "none";
-  }else{
-    const errorMessage="Verifica tu cuenta";
-    console.log("error active");
-    modal(errorMessage);
-  }
-}
-
-//Función para cerrar sesión
-function close(){
-  firebase.auth().signOut()
-  .then (function(){
-    document.querySelector(".insideFirstPage").style.display = "none";
-    document.querySelector(".logInPage").style.display = "block";
-  }).catch(function(error){
-    console.log (error);
-  })
-}
 
 document.querySelector(".btnLogOut").addEventListener("click", close);
 
@@ -134,19 +62,8 @@ document.querySelector(".welcomePage").style.display = "none";
 document.querySelector(".pageInformation").addEventListener("click", pageInformation);
 
 var user = firebase.auth().currentUser;
-//Función que envía correo de verificación al usuario que se registra
-function verify(){
-  var user = firebase.auth().currentUser;
-user.sendEmailVerification().then(function() {
-  modal("Te enviamos un  correo de autentificación");
-  console.log("autentificación");
-  document.querySelector(".logInPage").style.display = "block";
-  document.querySelector(".createAccountPage").style.display = "none";
-}).catch(function(error) {
-  console.log ("error");
-});
-}
 
+//Funció que llama a la información que va dentro del formulario
 function modal(message){
   let btn=document.querySelector(".modalBtn");
   btn.classList.add("btn-primary")
@@ -167,6 +84,7 @@ function googleAccount(){
 }
 
 document.querySelector(".btnGoogle").addEventListener("click", googleAccount);
+
 
 
 
@@ -192,4 +110,15 @@ var authService = firebase.auth();
 }
  document.querySelector(".btnFacebook").addEventListener("click", facebookAccount);
 
- 
+ /*Menú lateral*/
+ function openNav() {
+  document.getElementById("sideNavigation").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("sideNavigation").style.width = "0";
+}
+
+
+
