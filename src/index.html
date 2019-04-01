@@ -3,10 +3,10 @@
 <head>
  <meta charset="utf-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <title>Page Title</title>
+ <title>Pet Patrol</title>
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Fuentes de Google Fonts --> 
-<link href="https//fonts.googleapis.com/css?family=Lobster:400" rel="stylesheet" type="text/css"> 
+<!-- <link href="https//fonts.googleapis.com/css?family=Lobster:400" rel="stylesheet" type="text/css">  -->
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <!-- Fin Fuentes de Google Fonts --> 
@@ -14,63 +14,21 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />  
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-  <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="index.css">
+  
 </head>
 <body>
 <header class="firstHeader">
   <div>
- <a href= "#" onclick="window.location.reload(true);"><img src="../images/home.png" class="homeBtn"></a>
+ <a href= "#" class = "btnHome" ><img src="./images/home.png"  class="homeBtn"></a>
   <p>Pet patrol</p>
-<!-- <img src="../images/policeHat.png" alt="logo" class="logoImg"><br> -->
 </div>
 </header>
 <main>
-    <!--Página de bienvenida -->
-   <section class = "welcomePage">
-    <img src="../images/welcomeImg.png" alt="Pets Welcome" class="welcomeImg"><br>
-    <button class = "createAccount">Crear cuenta</button>
-    <button class = "logIn">Iniciar sesión</button>
-    <!-- <div id= "description" class="yellowText"> -->
-      <ul id= "description" class="yellowText">
-      <li>Publica y encuentra a tus mascotas perdidas </li>
-      <li>Localiza al mejor adoptante </li>
-      <li> Descubre a tu mascota ideal </li>
-      </ul>
-   <!-- </div> -->
-   </section>
-   <!--Página para crear una cuenta(nuevos usuarios) -->
-   <section class = "createAccountPage">
-    <h1 class="yellowTextSpacing">Crea tu cuenta</h1>
-     <label>Nombre</label><br>
-     <input class = "createAccountName" type ="text" placeholder = "Nombre"><br>
-     <label>Correo</label><br>
-     <input class = "createAccountEmail" type = "text" placeholder = "tucorreo@dominio.com"><br>
-     <label>Contraseña</label><br>
-     <input class = "createAccountPassword" type= "password" placeholder = "Contraseña"><br>
-     <button  class = "btnCreateAccount modalBtn" data-toggle="modal" data-target="#exampleModal">Enviar</button>
-     <a href="#" ><p class ="btnGoogle">Registrate con Google</p></a>
-     <a href="#" ><p class ="btnFacebook">Registrate con Facebook</p></a>
-     <div class="instrucciones">
-    Bienvenid@ a Pet Patrol, Para publicar da click en el menú, seguido de la opción publicar, no dejes ningún campo del formulario vació, entre más clara sea la información que proporciones sobre tu mascota, mayor audiencia tendrá. 
-    </div>
-    </section>
-  <!--Págin para login -->
-   <section class = "logInPage">
-    <h1 class="yellowTextSpacing">Inicia sesión</h1>
-     <label>Email</label><br>
-     <input  class = "logInEmail" type = "text" placeholder = "Email"><br>
-     <label>Contraseña</label><br>
-     <input class = "logInPassword" type = "password" placeholder = "Contraseña"><br>
-     <button class = "btnLogIn modalBtn" data-toggle="modal" data-target="#exampleModal"> Entrar</button>
-     <br><a href="#" onclick="window.location.reload(true);">Volver a página de Inicio</a>
-   </section>
-
-   <!--Sección de 'about us' -->
-   <section class = "aboutUs"><p>Pet Patrol surge de la necesidad de una red social especializada en el apoyo de búsqueda de mascotas extravidas y colocación de mascotas que aún no tienen un hogar.</p>
-   </section>
-   <section class="insideFirstPage">
-   </section>
-   <!-- Modal -->
+    
+   
+ 
+   <!-- Modal 
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -87,10 +45,10 @@
         </div>
       </div>
     </div>
-  </div>
-  
-<section class = "secondHeader">
-<!-- Menú lateral -->
+  </div>-->
+
+<!-- <section class = "secondHeader">
+
 <input type="checkbox" class="checkbox" id="menu-toogle"/>
 <label for="menu-toogle" class="menu-toogle"></label>
 <nav class="nav">
@@ -98,18 +56,49 @@
   <a href="#" class="nav__item btnLogOut">Cerrar sesión</a>
 </nav>
 <p>Pet patrol</p>
-</section>
+</section> -->
+
+<div id = "content"></div>
+
 <footer class = "firstFooter">
   <a href="#" class = "pageInformation" ><p>¿Quiénes Somos?</p></a>
 </footer>
-  <section class ="secondFooter">
+  <!-- <section class ="secondFooter">
      <button> <img src="../images/home.png" class="SecondHomeBtn"></button>
      <button> <img src="../images/lost.png"  class="lostBtn"></button>
      <button> <img src="../images/adopt.png"  class="adoptBtn"></button>
      <button> <img src="../images/help.png"  class="helpBtn"></button>
   </section>
-  
-</main>
+<section class = "profile">
+  <label>Nombre</label>
+  <input  type = "text" class = " userName ">
+  <label>Apellido</label>
+  <input type = "text"class = " userLastName">
+  <label>Edad</label>
+  <input type = "text" class = "ageUser">
+  <button class= "btnSave">Actualizar</button>
+</section>
+<section class = "lostPets">
+  <h1>Extraviados</h1>
+  <button class = "postForm">Publicar</button>
+</section>
+<section class = "postLosts">
+  <form>
+    <label>Nombre</label>
+    <input  type = "text" class = " petName ">
+    <label>color</label>
+    <input type = "text"class = " petColor">
+    <label>Edad</label>
+    <input type = "text" class = "petAge">
+    <button class= "btnPost">Publicar</button>
+  </form>
+</section> 
+</main> -->
+<!-- publicaciones -->
+
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+<!-- final publicaciones -->
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
 <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
@@ -117,7 +106,10 @@
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"> </script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src = "data.js"></script>
-<script src="main.js"></script>
+<script src ="firebaseApp.js"></script>
+<script src = "index.js"></script>
+<script src ="pages.js"></script>
+<script src ="firebaseFunctions.js"></script>
+
 </body>
 </html>

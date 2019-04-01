@@ -7,7 +7,7 @@
 }
 
 body{
-    background-image: url(../images/FondoHuellitas.png);
+    background-image: url(./images/FondoHuellitas.png);
     background-position: center center;
     height: 100%;
     width: 100%;
@@ -122,7 +122,6 @@ padding: auto;
 
 .homeBtn{
     width: 4rem;
-    height: auto;
     position: absolute;
     left: 2rem;
     top: 1rem;
@@ -309,5 +308,4 @@ padding: auto;
         left:208px;
         position:fixed; /*Fijamos la hamburgues para que se desplace junto con el menú*/
       }
-  
   
