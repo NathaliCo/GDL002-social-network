@@ -1,23 +1,124 @@
-showFormLostPet=()=>{
-  onNavItemClick("/lostPet");
-}
-//post
-const newPostLostPet = (petName, petColor, petAge) => {
-  const name = document.querySelector(".petName").value;
-  const lastName = document.querySelector(".petColor").value;
-  const age = document.querySelector(".petAge").value;
-  db.collection("postLosts").add({
-    first: name,
-    last: lastName,
-    born: age
-  })
-    .then(function (docRef) {
-      console.log("Document written with ID: ", docRef.id);
+// Inicia Cloud Firestore a traves de Firebase
+var db = firebase.firestore();
 
-    })
-    .catch(function (error) {
-      console.error("Error adding document: ", error);
+//editar documentos
+function edit(id, name,){
+	let saveBtn = document.querySelector(".saveBtn");
+
+	document.querySelector(".name").value = name; 
+	document.querySelector(".date").value = date;
+	document.querySelector(".description").value = description;
+	document.querySelector(".details").value = details;
+	document.querySelector(".features").value = features;
+	document.querySelector(".contact").value = contact;
+
+
+	document.querySelector(".saveBtn") = saveBtn.innerHTML = 'edit';
+
+	saveBtn.onclick = function(){
+		let petTemplate = db.collection("users").doc(id);
+		let posts = document.querySelector(".printInfo").value;
+	
+
+
+
+return petTemplate.update({
+    name: name,
+    date: date,
+    description: description,
+    details: details,
+    features: features,
+    contact: contact, 
+})
+.then(function() {
+    console.log("Document successfully updated!");
+    saveBtn.innerHTML = 'Editar';
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+
+	}
+}
+
+const lostForm= () =>{
+  onNavItemClick("/postLost");
+}
+showLostPet=()=>{
+  onNavItemClick("/lostPet").then(
+    () => {
+      printLostPets();
+    }
+  );
+  
+}
+//Nuevo post para mascotas perdidas
+function savePost(){
+	let name = document.querySelector(".name").value;
+	let date = document.querySelector(".date").value;
+	let description = document.querySelector(".description").value;
+	let details = document.querySelector(".details").value;
+	let features = document.querySelector(".features").value;
+	let contact = document.querySelector(".contact").value;
+db.collection("users").add({ //agrega un ID automatico a cada usuario
+    name: name,
+    date: date,
+    description: description,
+    details: details,
+    features: features,
+    contact: contact, 
+
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    document.querySelector(".name").value = "";
+    document.querySelector(".date").value = "";
+    document.querySelector(".description").value = "";
+    document.querySelector(".details").value = "";
+    document.querySelector(".features").value = "";
+    document.querySelector(".contact").value = "";
+    showLostPet();
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+}
+
+
+const printLostPets=()=>{
+//leer documentos
+let table = document.querySelector(".printInfo"); //es donde se va imprimir la info de los usuarios
+console.log (table);
+db.collection("users").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
+cambio en la base de datos, lo refleja en la página */
+	table.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
+	nuevos usuarios porque sino va a repetir los datos */
+    querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
+        console.log(`${doc.id} => ${doc.data().name}`);
+        //es para que jale la data de c/ usuario y la imprima en pantalla
+        table.innerHTML += `
+        <tr>
+        <td>Nombre: ${doc.data().name}</td><br>
+        <td>Visto por última vez: ${doc.data().date}</td><br>
+        <td>Descripción: ${doc.data().description}</td><br>
+        <td>Placa/Collar/Ropa: ${doc.data().details}</td><br>
+        <td>Señas particulares: ${doc.data().features}</td><br>
+        <td>Contacto: ${doc.data().contact}</td><br>
+        <td><button class="btnDanger" onclick= eliminate('${doc.id}')>Eliminar</button></td>
+        <td><button class="btnsWarning" onclick= edit('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')>Editar</button></td><br>
+        </tr> `;
     });
+});
+}
+//borrar documentos
+function eliminate(id){
+	db.collection("users").doc(id).delete().then(function() {
+    console.log("Document successfully deleted!");
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+}); 
 }
 //Función para cerrar sesión
 const close = () => {
@@ -35,7 +136,10 @@ const close = () => {
     })
 }
 
-const firebaseNewAccount = (email, password) => {
+const firebaseNewAccount = (email, password, name) => {
+   name =document.querySelector(".createAccountName").value;
+  email = document.querySelector(".createAccountEmail").value;
+ password = document.querySelector(".createAccountPassword").value;
   firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
     verify();
   })
@@ -46,8 +150,12 @@ const firebaseNewAccount = (email, password) => {
       modal(errors);
       console.log("error createacount");
       // ...
+ document.querySelector(".btn").setAttribute("class", "btnCreateAccount modalBtn");
+
     });
 }
+
+
 
 const socialNetwork = {
   pageLogIn: pageLogIn,
@@ -55,10 +163,9 @@ const socialNetwork = {
   btnLogIn: btnLogIn,
   firebaseNewAccount: firebaseNewAccount,
   close: close,
-  showFormLostPet: showFormLostPet,
-  newPostLostPet: newPostLostPet,
-  
-
+  showLostPet: showLostPet,
+  lostForm:lostForm,
+  savePost:savePost,
 
 };
 
@@ -75,7 +182,14 @@ const buttons = () => {
           document.getElementById(event.target.attributes.dataSecond.value).value);
       });
     }
+    else if (window.location.pathname == "/createAccount") {
+      allButtons[i].addEventListener("click", function (event) {
+        socialNetwork[event.target.dataset.next](document.getElementById(event.target.attributes.dataFirst.value).value,
+          document.getElementById(event.target.attributes.dataSecond.value).value, document.getElementById(event.target.attributes.dataThird.value).value);
+      });
+    } 
     else {
+
       allButtons[i].addEventListener("click", function (event) {
         socialNetwork[event.target.dataset.next]();
       });
@@ -93,6 +207,7 @@ let routes = {
   '/logIn': `./pages/logInPage.html`,
   '/createAccount': `./pages/createAccount.html`,
   '/lostPet': `./pages/lostPet.html`,
+  '/postLost': `./pages/postLost.html`,
 };
 
 window.onpopstate = () => {
@@ -102,7 +217,7 @@ window.onpopstate = () => {
 
 let onNavItemClick = (pathName) => {
   window.history.pushState({}, pathName, window.location.origin + pathName);
-  fetchContent(routes[window.location.pathname])
+  return fetchContent(routes[window.location.pathname])
     .then(html => contentDiv.innerHTML = html)
     .then(() => buttons());
   console.log(pathName);
@@ -234,6 +349,7 @@ const errorMessages = (errorMessage) => {
 const sesiónIniciada = () => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+      
       document.querySelector(".firstHeader").style.display = "none";
       document.querySelector(".firstFooter").style.display = "none";
       document.querySelector(".secondHeader").style.display = "block";
@@ -248,6 +364,7 @@ const sesiónIniciada = () => {
     }
   });
 }
+
 sesiónIniciada();
 
 //Función que envía correo de verificación al usuario que se registra
@@ -255,6 +372,7 @@ const verify = () => {
   let user = firebase.auth().currentUser;
 
   user.updateProfile({
+    displayName: document.querySelector(".createAccountName").value
   })
   user.sendEmailVerification().then(function () {
     modal("Te enviamos un  correo de autentificación");

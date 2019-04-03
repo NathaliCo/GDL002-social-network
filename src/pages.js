@@ -141,7 +141,6 @@ const endSesion =()=>{
   close();
 }
 
-
 document.querySelector(".btnLogOut").addEventListener("click", endSesion);
 
 

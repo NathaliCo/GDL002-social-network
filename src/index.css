@@ -308,4 +308,8 @@ padding: auto;
         left:208px;
         position:fixed; /*Fijamos la hamburgues para que se desplace junto con el menú*/
       }
-  
+      input[type="text"]{
+        width:100%;
+        display:block;
+        font-size: 15px;
+    }
