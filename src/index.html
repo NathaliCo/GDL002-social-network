@@ -1,74 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
- <meta charset="utf-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <title>Pet Patrol</title>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Fuentes de Google Fonts --> 
-<!-- <link href="https//fonts.googleapis.com/css?family=Lobster:400" rel="stylesheet" type="text/css">  -->
-<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-<!-- Fin Fuentes de Google Fonts --> 
-<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth.css" />
-<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />  
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Pet Patrol</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Fuentes de Google Fonts -->
+  <!-- <link href="https//fonts.googleapis.com/css?family=Lobster:400" rel="stylesheet" type="text/css">  -->
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <!-- Fin Fuentes de Google Fonts -->
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth.css" />
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" media="screen" href="index.css">
-  
+
 </head>
+
 <body>
-<header class="firstHeader">
-  <div>
- <a href= "#" class = "btnHome" ><img src="./images/home.png"  class="homeBtn"></a>
-  <p>Pet patrol</p>
-</div>
-</header>
-<main>
-    
-   
- 
-   <!-- Modal 
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Atención</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+  <header class="firstHeader">
+    <div>
+      <a href="#" class="btnHome"><img src="./images/home.png" class="homeBtn"></a>
+      <p>Pet patrol</p>
+    </div>
+  </header>
+  <main>
+
+    <section class="secondHeader">
+      <input type="checkbox" class="checkbox" id="menu-toogle" />
+      <label for="menu-toogle" class="menu-toogle"></label>
+      <nav class="nav">
+        <a href="#" class="nav__item current">Mi perfil</a>
+        <a href="#" class="nav__item btnLogOut">Cerrar sesión</a>
+      </nav>
+      <p>Pet patrol</p>
+    </section>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Atención</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>-->
 
-<!-- <section class = "secondHeader">
 
-<input type="checkbox" class="checkbox" id="menu-toogle"/>
-<label for="menu-toogle" class="menu-toogle"></label>
-<nav class="nav">
-  <a href="#" class="nav__item current">Mi perfil</a>
-  <a href="#" class="nav__item btnLogOut">Cerrar sesión</a>
-</nav>
-<p>Pet patrol</p>
-</section> -->
 
-<div id = "content"></div>
+    <div id="firstContent"></div>
+    <div id="secondContent"></div>
 
-<footer class = "firstFooter">
-  <a href="#" class = "pageInformation" ><p>¿Quiénes Somos?</p></a>
-</footer>
-  <!-- <section class ="secondFooter">
-     <button> <img src="../images/home.png" class="SecondHomeBtn"></button>
-     <button> <img src="../images/lost.png"  class="lostBtn"></button>
-     <button> <img src="../images/adopt.png"  class="adoptBtn"></button>
-     <button> <img src="../images/help.png"  class="helpBtn"></button>
-  </section>
+    <footer class="firstFooter">
+      <a href="#" class="pageInformation">
+        <p>¿Quiénes Somos?</p>
+      </a>
+    </footer>
+
+    <!-- publicaciones 
+
 <section class = "profile">
   <label>Nombre</label>
   <input  type = "text" class = " userName ">
@@ -78,38 +83,38 @@
   <input type = "text" class = "ageUser">
   <button class= "btnSave">Actualizar</button>
 </section>
-<section class = "lostPets">
-  <h1>Extraviados</h1>
-  <button class = "postForm">Publicar</button>
-</section>
-<section class = "postLosts">
-  <form>
-    <label>Nombre</label>
-    <input  type = "text" class = " petName ">
-    <label>color</label>
-    <input type = "text"class = " petColor">
-    <label>Edad</label>
-    <input type = "text" class = "petAge">
-    <button class= "btnPost">Publicar</button>
-  </form>
-</section> 
-</main> -->
-<!-- publicaciones -->
 
-<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
-<!-- final publicaciones -->
-<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
-<script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
- <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"> </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src ="firebaseApp.js"></script>
-<script src = "index.js"></script>
-<script src ="pages.js"></script>
-<script src ="firebaseFunctions.js"></script>
+</main> -->
+    <section class="secondFooter">
+      <button class="typeButton"> <img src="./images/home.png" class="SecondHomeBtn"></button>
+      <button> <img class="typeButton" id ="showFormLostPet" data-next = "showFormLostPet"  src="./images/lost.png" class="lostBtn"></button>
+      <button class="typeButton"> <img src="./images/adopt.png" class="adoptBtn"></button>
+      <button class="typeButton"> <img src="./images/help.png" class="helpBtn"></button>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+    <!-- final publicaciones -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase-app.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script src="firebaseApp.js"></script>
+    <script src="firebaseFunctions.js"></script>
+    <script src="index.js"></script>
+    <script src="pages.js"></script>
+
 
 </body>
+
 </html>

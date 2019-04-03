@@ -12,12 +12,7 @@
 
 // document.querySelector(".createAccount").addEventListener("click", newAccount);
 
-// //Función que llama al formulario para ingresar a la cuenta
-// function logIn (){
-//   document.querySelector(".logInPage").style.display = "block";
-//   document.querySelector(".welcomePage").style.display = "none";
-// }
-// document.querySelector(".logIn").addEventListener("click", logIn);
+
 
 // //Función que se ejecuta al dar click en crear una nueva cuenta
 // function createNewAccount(){
@@ -30,14 +25,7 @@
 
 // document.querySelector(".btnCreateAccount").addEventListener("click", createNewAccount);
 
-// //Función que se ejecuta al dar click en el botón de entrar
-// function btnLogIn(){
-//   //Obtenemos los valores de los inputs
-//   const email= document.querySelector(".logInEmail").value;
-//   const password= document.querySelector(".logInPassword").value;
-//   firebaseLogIn(email,password);
-// }
-// document.querySelector(".btnLogIn").addEventListener("click", btnLogIn);
+
 
 //  function logKey(e) {
 //    key = (document.all) ? e.keyCode : e.which;
@@ -61,13 +49,7 @@
 
 // var user = firebase.auth().currentUser;
 
-// //Funció que llama a la información que va dentro del formulario
-// function modal(message){
-//   let btn=document.querySelector(".modalBtn");
-//   btn.classList.add("btn-primary")
-//   document.querySelector(".modal-body").innerHTML=message;
-  
-// }
+
 
 // function googleAccount(){
 //   var provider = new firebase.auth.GoogleAuthProvider();
@@ -136,26 +118,30 @@
 
 
 
+// if (window.location.pathname =="/firstPage"){
+//   document.querySelector(".logIn").addEventListener("click", pageLogIn );
+// }
 
 
+//<button class="button jsBtn" data-next="logout" type="button" id="signIn">Log out</button>
+//<button class="postButton jsBtn" data-next="publish" type="button" id="publish">Publish</button>
+//<button class="button jsBtn" data-next="register" dataFirst="email" dataSecond="password" type="button" id="signUpBtn">Sign up!</button>
 function pageInformation (){
   onNavItemClick('/aboutUs');
   }
    document.querySelector(".pageInformation").addEventListener("click", pageInformation);
-
-   
-   function pageLogIn (){
-    onNavItemClick("/logIn");
-  } 
-  document.querySelector(".logIn").addEventListener("click", pageLogIn);
   
-
-  function pageCreateAccount (){
-    onNavItemClick('/createAccount');
-    }
-    document.querySelector(".createAccount").addEventListener("click", pageCreateAccount);
-
     function goWelcomePage (){
       onNavItemClick(`/firstPage`);
     }
     document.querySelector(".homeBtn").addEventListener("click", goWelcomePage);
+
+const endSesion =()=>{
+  onNavItemClick(`/firstPage`);
+  close();
+}
+
+
+document.querySelector(".btnLogOut").addEventListener("click", endSesion);
+
+

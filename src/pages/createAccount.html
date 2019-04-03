@@ -2,13 +2,12 @@
 <section class = "createAccountPage">
     <h1 class="yellowTextSpacing">Crea tu cuenta</h1>
     <div class="instrucciones">
-      Bienvenid@ a XXXXXXX, Para publicar da click en el menú, seguido de la opción publicar, no dejes ningún campo del formulario vació, entre más clara sea la información que proporciones sobre tu mascota, mayor audiencia tendrá. 
       </div>
-     <label>Nombre</label><br>
-     <input class = "createAccountName" type ="text" placeholder = "Nombre"><br>
+    <!-- <label>Nombre</label><br>
+     <input class = "createAccountName" type ="text" placeholder = "Nombre"><br>-->
      <label>Correo</label><br>
-     <input class = "createAccountEmail" type = "text" placeholder = "tucorreo@dominio.com"><br>
+     <input class = "createAccountEmail"  id = "createAccountEmail" type = "text" placeholder = "tucorreo@dominio.com"><br>
      <label>Contraseña</label><br>
-     <input class = "createAccountPassword" type= "password" placeholder = "Contraseña"><br>
-     <button  class = "btnCreateAccount modalBtn" data-toggle="modal" data-target="#exampleModal">Enviar</button>
+     <input class = "createAccountPassword" id = "createAccountPassword" type= "password" placeholder = "Contraseña"><br>
+     <button  class = "btnCreateAccount modalBtn typeButton" data-next= "firebaseNewAccount" dataFirst = "createAccountEmail" dataSecond = "createAccountPassword" id = "firebaseNewAccount" data-toggle="modal" data-target="#exampleModal">Enviar</button>
     </section>
