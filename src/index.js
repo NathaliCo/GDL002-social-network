@@ -1,9 +1,3 @@
-
-function likeCount(){
-  
-
-}
-
 // Inicia Cloud Firestore a traves de Firebase
 var db = firebase.firestore();
 // Crear cuenta
@@ -112,34 +106,43 @@ const activeUser = (user) => {
   }
 }
 
-// new version (fusion)
-function edit(id, name){
-  document.querySelector(".table").value = name; //es el nombre de la clase del input
-  let btn = document.querySelector(".saveBtn");
-  btn.innerHTML = "Editar";
-  btn.onclick = function(){
-    let petTemplate = db.collection("lostsPets").doc(id);
-    let posts = document.querySelector(".table").value;
-    return petTemplate.update({
-      name: name,
-     // date: date,
-     // description: description,
-      //details: details,
-      //features: features,
-     // contact: contact, 
-    })
-    .then(function() {
-          console.log("Document successfully updated!");
-          btn.innerHTML = "Guardar";
-          document.querySelector(".table").value = "";
-          btn.innerHTML = ""
-        })
-        .catch(function(error) {
-          // The document probably doesn't exist.
-          console.error("Error updating document: ", error);
-        });
+// NEW VERSION (fusion)
+function edit(id, name, date, description, details, features, contact){
+  let elements = [];
+  elements.push(document.getElementsByTagName('td'));
+  for (let i = 0; i < elements.length; i++){
+     elements[i].innerHTML += elements[i];
   }
-  }
+document.getElementsByTagName('td').value = name, date, description, details, features, contact; //es el nombre de la clase del input
+let btn = document.querySelector(".saveBtn");
+btn.innerHTML = "Editar";
+btn.onclick = function(){
+  let petTemplate = db.collection("lostsPets").doc(id);
+  let posts = (elements).value;
+  return petTemplate.update({
+    name: name,
+    date: date,
+    description: description,
+    details: details,
+    features: features,
+    contact: contact, 
+    share: share,
+  })
+  .then(function() {
+        console.log("Document successfully updated!");
+        btn.innerHTML = "Guardar";
+        document.getElementsByTagName('td').value = "";
+        btn.innerHTML = ""
+        let select = document.getElementById("shareLost").value;
+        share = select;
+      })
+      .catch(function(error) {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
+}
+}
+
 const lostForm= () =>{
   onNavItemClick("/postLost");
 }
@@ -160,7 +163,16 @@ function savePost(){
 	let description = document.querySelector(".description").value;
 	let details = document.querySelector(".details").value;
 	let features = document.querySelector(".features").value;
-	let contact = document.querySelector(".contact").value;
+  let contact = document.querySelector(".contact").value;
+  let select = document.querySelector(".shareLost").value;
+  let user = firebase.auth().currentUser;
+  share = select;
+  let who = user.displayName;
+  console.log(who);
+  let whoId =user.uid;
+  console.log (whoId);
+  whoId=whoId
+  who=who;
 db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     name: name,
     date: date,
@@ -168,6 +180,9 @@ db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     details: details,
     features: features,
     contact: contact, 
+    share:share,
+    who:who,
+    whoId:whoId,
 
 })
 .then(function(docRef) {
@@ -194,12 +209,13 @@ console.log (table);
 db.collection("lostsPets").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
 cambio en la base de datos, lo refleja en la página */
 	table.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
-	nuevos usuarios porque sino va a repetir los datos */
+  nuevos usuarios porque sino va a repetir los datos */
     querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
         console.log(`${doc.id} => ${doc.data().name}`);
         //es para que jale la data de c/ usuario y la imprima en pantalla
         table.innerHTML += `
         <tr>
+        <td> ${doc.data().who}</td><br>
         <td>Nombre: ${doc.data().name}</td><br>
         <td>Visto por última vez: ${doc.data().date}</td><br>
         <td>Descripción: ${doc.data().description}</td><br>
@@ -231,14 +247,11 @@ const close = () => {
       document.querySelector(".secondFooter").style.display = "none";
       document.querySelector("#firstContent").style.display = "block";
       document.querySelector("#secondContent").style.display = "none";
+
     }).catch(function (error) {
       console.log(error);
     })
 }
-
-
-
-
 
 const socialNetwork = {
   pageLogIn: pageLogIn,
@@ -249,11 +262,9 @@ const socialNetwork = {
   showLostPet: showLostPet,
   lostForm:lostForm,
   savePost:savePost,
-  likeCount:likeCount,
   showAdoptionPets:showAdoptionPets,
   adoptionForm:adoptionForm,
   savePostAdoption:savePostAdoption,
-  
 };
 
 
@@ -303,7 +314,6 @@ let onNavItemClick = (pathName) => {
   return fetchContent(routes[window.location.pathname])
     .then(html => contentDiv.innerHTML = html)
     .then(() => buttons());
-  console.log(pathName);
 }
 
 const fetchContent = (url) => fetch(url)
@@ -391,11 +401,6 @@ const sesiónIniciada = () => {
 
 sesiónIniciada();
 
-
-
-// //document.querySelector(".btnPost").addEventListener("click",newPostLostPet );
-
-
 //Nuevo post para mascotas en adopción
 function savePostAdoption(){
 	let name = document.querySelector(".nameA").value;
@@ -404,6 +409,17 @@ function savePostAdoption(){
 	let features = document.querySelector(".featuresA").value;
   let contact = document.querySelector(".contactA").value;
   let like=0;
+  let select = document.querySelector(".shareAdoption").value;
+    share = select;
+    let user = firebase.auth().currentUser;
+    share = select;
+    let who = user.displayName;
+    console.log(who);
+  
+    let whoId =user.uid;
+    console.log (whoId);
+    whoId=whoId
+    who=who;
   
 db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     name: name,
@@ -412,7 +428,9 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     features: features,
     contact: contact, 
     like:like,
-
+    share:share,
+    who:who,
+    whoId:whoId,
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
@@ -421,6 +439,7 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     document.querySelector(".detailsA").value = "";
     document.querySelector(".featuresA").value = "";
     document.querySelector(".contactA").value = "";
+  
     showAdoptionPets();
 })
 .catch(function(error) {
@@ -443,6 +462,7 @@ cambio en la base de datos, lo refleja en la página */
         //es para que jale la data de c/ usuario y la imprima en pantalla
         tableAdopt.innerHTML += `
         <tr>
+        <td>${doc.data().who}</td><br>
         <td>Nombre: ${doc.data().name}</td><br>
         <td>Descripción: ${doc.data().description}</td><br>
         <td>Convive con otras mascotas: ${doc.data().details}</td><br>
