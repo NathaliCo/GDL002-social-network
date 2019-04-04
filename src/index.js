@@ -1,47 +1,145 @@
-// Inicia Cloud Firestore a traves de Firebase
-var db = firebase.firestore();
 
-//editar documentos
-function edit(id, name,){
-	let saveBtn = document.querySelector(".saveBtn");
+function likeCount(){
+  
 
-	document.querySelector(".name").value = name; 
-	document.querySelector(".date").value = date;
-	document.querySelector(".description").value = description;
-	document.querySelector(".details").value = details;
-	document.querySelector(".features").value = features;
-	document.querySelector(".contact").value = contact;
-
-
-	document.querySelector(".saveBtn") = saveBtn.innerHTML = 'edit';
-
-	saveBtn.onclick = function(){
-		let petTemplate = db.collection("users").doc(id);
-		let posts = document.querySelector(".printInfo").value;
-	
-
-
-
-return petTemplate.update({
-    name: name,
-    date: date,
-    description: description,
-    details: details,
-    features: features,
-    contact: contact, 
-})
-.then(function() {
-    console.log("Document successfully updated!");
-    saveBtn.innerHTML = 'Editar';
-})
-.catch(function(error) {
-    // The document probably doesn't exist.
-    console.error("Error updating document: ", error);
-});
-
-	}
 }
 
+// Inicia Cloud Firestore a traves de Firebase
+var db = firebase.firestore();
+// Crear cuenta
+const firebaseNewAccount = () => {
+  name =document.querySelector(".createAccountName").value;
+ email = document.querySelector(".createAccountEmail").value;
+password = document.querySelector(".createAccountPassword").value;
+
+ firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
+   verify();
+ })
+   .catch(function (error) {
+     // Handle Errors here.
+     let errorMessage = error.message;
+     let errors = errorMessages(errorMessage);
+     modal(errors);
+     console.log("error createacount");
+     // ...
+
+   });
+}
+var user = firebase.auth().currentUser;
+//Verificar cuenta
+//Función que envía correo de verificación al usuario que se registra
+const verify = () => {
+  let user = firebase.auth().currentUser;
+  console.log(user.displayName)
+  user.updateProfile({
+    displayName: document.querySelector(".createAccountName").value
+    
+  })
+  user.sendEmailVerification().then(function () {
+    modal("Te enviamos un  correo de autentificación");
+    console.log("autentificación");
+   
+  }).catch(function (error) {
+    
+    console.log("error");
+  });
+}
+
+//Iniciar sesión
+//Función que se ejecuta al dar click en el botón de entrar
+function btnLogIn() {
+  console.log("Hi");
+  //Obtenemos los valores de los inputs
+  const email = document.querySelector(".logInEmail").value;
+  const password = document.querySelector(".logInPassword").value;
+  firebaseLogIn(email, password);
+
+}
+
+
+const firebaseLogIn = (email, password) => {
+
+  firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
+    observer();
+
+  })
+    .catch(function (error) {
+      // Handle Errors here.
+      let errorMessage = error.message;
+      let logInError = errorMessages(errorMessage);
+      modal(logInError);
+      console.log(error.message);
+      console.log(error);
+      document.querySelector(".btn").setAttribute("class", "btnCreateAccount modalBtn");
+      // ...
+
+    });
+
+}
+//Función que permite saber si el usurio está activo, es decir que está dentro de su cuenta y abre la pantalla de la red social
+const observer = () => {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      activeUser(user);
+      // User is signed in.
+      let displayName = user.displayName;
+    
+      console.log(user);
+      console.log(user.emailVerified);
+      let email = user.email;
+      let emailVerified = user.emailVerified;
+      let photoURL = user.photoURL;
+      let isAnonymous = user.isAnonymous;
+      uid = user.uid;
+      let providerData = user.providerData;
+      
+    } else {
+      
+    }
+
+  });
+}
+
+//Función que desactiva los formularios de registro y de inicio de sesión y activa la pantalla de la red social
+const activeUser = (user) => {
+  user = user;
+  if (user.emailVerified) {
+  } else {
+   
+    const errorMessage = "Verifica tu cuenta";
+    console.log("error active");
+    modal(errorMessage);
+  }
+}
+
+// new version (fusion)
+function edit(id, name){
+  document.querySelector(".table").value = name; //es el nombre de la clase del input
+  let btn = document.querySelector(".saveBtn");
+  btn.innerHTML = "Editar";
+  btn.onclick = function(){
+    let petTemplate = db.collection("lostsPets").doc(id);
+    let posts = document.querySelector(".table").value;
+    return petTemplate.update({
+      name: name,
+     // date: date,
+     // description: description,
+      //details: details,
+      //features: features,
+     // contact: contact, 
+    })
+    .then(function() {
+          console.log("Document successfully updated!");
+          btn.innerHTML = "Guardar";
+          document.querySelector(".table").value = "";
+          btn.innerHTML = ""
+        })
+        .catch(function(error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+  }
+  }
 const lostForm= () =>{
   onNavItemClick("/postLost");
 }
@@ -53,6 +151,8 @@ showLostPet=()=>{
   );
   
 }
+
+
 //Nuevo post para mascotas perdidas
 function savePost(){
 	let name = document.querySelector(".name").value;
@@ -61,7 +161,7 @@ function savePost(){
 	let details = document.querySelector(".details").value;
 	let features = document.querySelector(".features").value;
 	let contact = document.querySelector(".contact").value;
-db.collection("users").add({ //agrega un ID automatico a cada usuario
+db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     name: name,
     date: date,
     description: description,
@@ -91,7 +191,7 @@ const printLostPets=()=>{
 //leer documentos
 let table = document.querySelector(".printInfo"); //es donde se va imprimir la info de los usuarios
 console.log (table);
-db.collection("users").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
+db.collection("lostsPets").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
 cambio en la base de datos, lo refleja en la página */
 	table.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
 	nuevos usuarios porque sino va a repetir los datos */
@@ -106,15 +206,15 @@ cambio en la base de datos, lo refleja en la página */
         <td>Placa/Collar/Ropa: ${doc.data().details}</td><br>
         <td>Señas particulares: ${doc.data().features}</td><br>
         <td>Contacto: ${doc.data().contact}</td><br>
-        <td><button class="btnDanger" onclick= eliminate('${doc.id}')>Eliminar</button></td>
         <td><button class="btnsWarning" onclick= edit('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')>Editar</button></td><br>
+        <button onclick="ConfirmDeleteLostPet('${doc.id}')">Eliminar</button>
         </tr> `;
     });
 });
 }
 //borrar documentos
 function eliminate(id){
-	db.collection("users").doc(id).delete().then(function() {
+	db.collection("lostsPets").doc(id).delete().then(function() {
     console.log("Document successfully deleted!");
 }).catch(function(error) {
     console.error("Error removing document: ", error);
@@ -136,24 +236,7 @@ const close = () => {
     })
 }
 
-const firebaseNewAccount = (email, password, name) => {
-   name =document.querySelector(".createAccountName").value;
-  email = document.querySelector(".createAccountEmail").value;
- password = document.querySelector(".createAccountPassword").value;
-  firebase.auth().createUserWithEmailAndPassword(email, password).then(function () {
-    verify();
-  })
-    .catch(function (error) {
-      // Handle Errors here.
-      let errorMessage = error.message;
-      let errors = errorMessages(errorMessage);
-      modal(errors);
-      console.log("error createacount");
-      // ...
- document.querySelector(".btn").setAttribute("class", "btnCreateAccount modalBtn");
 
-    });
-}
 
 
 
@@ -166,7 +249,11 @@ const socialNetwork = {
   showLostPet: showLostPet,
   lostForm:lostForm,
   savePost:savePost,
-
+  likeCount:likeCount,
+  showAdoptionPets:showAdoptionPets,
+  adoptionForm:adoptionForm,
+  savePostAdoption:savePostAdoption,
+  
 };
 
 
@@ -182,12 +269,6 @@ const buttons = () => {
           document.getElementById(event.target.attributes.dataSecond.value).value);
       });
     }
-    else if (window.location.pathname == "/createAccount") {
-      allButtons[i].addEventListener("click", function (event) {
-        socialNetwork[event.target.dataset.next](document.getElementById(event.target.attributes.dataFirst.value).value,
-          document.getElementById(event.target.attributes.dataSecond.value).value, document.getElementById(event.target.attributes.dataThird.value).value);
-      });
-    } 
     else {
 
       allButtons[i].addEventListener("click", function (event) {
@@ -208,6 +289,8 @@ let routes = {
   '/createAccount': `./pages/createAccount.html`,
   '/lostPet': `./pages/lostPet.html`,
   '/postLost': `./pages/postLost.html`,
+  '/adoptionPets':`./pages/adoptionPets.html`,
+  '/postAdoptionPets':`./pages/postAdoptionPets.html`,
 };
 
 window.onpopstate = () => {
@@ -254,38 +337,7 @@ function pageCreateAccount() {
 }
 
 
-//Función que se ejecuta al dar click en el botón de entrar
-function btnLogIn() {
-  console.log("Hi");
-  //Obtenemos los valores de los inputs
-  const email = document.querySelector(".logInEmail").value;
-  const password = document.querySelector(".logInPassword").value;
-  firebaseLogIn(email, password);
 
-}
-
-
-const firebaseLogIn = (email, password) => {
-
-  firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
-
-    // document.querySelector("menuBtns").style.display = "block";
-    observer();
-
-  })
-    .catch(function (error) {
-      // Handle Errors here.
-      let errorMessage = error.message;
-      let logInError = errorMessages(errorMessage);
-      modal(logInError);
-      console.log(error.message);
-      console.log(error);
-
-      // ...
-
-    });
-
-}
 
 //Función que llama a la información que va dentro del formulario
 function modal(message) {
@@ -295,36 +347,8 @@ function modal(message) {
 
 }
 
-//Función que desactiva los formularios de registro y de inicio de sesión y activa la pantalla de la red social
-const activeUser = (user) => {
-  user = user;
-  if (user.emailVerified) {
-  } else {
-    const errorMessage = "Verifica tu cuenta";
-    console.log("error active");
-    modal(errorMessage);
-  }
-}
 
-//Función que permite saber si el usurio está activo, es decir que está dentro de su cuenta y abre la pantallad e la red social
-const observer = () => {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      activeUser(user);
-      // User is signed in.
-      let displayName = user.displayName;
-      console.log(user);
-      console.log(user.emailVerified);
-      let email = user.email;
-      let emailVerified = user.emailVerified;
-      let photoURL = user.photoURL;
-      let isAnonymous = user.isAnonymous;
-      uid = user.uid;
-      let providerData = user.providerData;
-    } else {
-    }
-  });
-}
+
 
 
 //Función para mostrar mensajes de error en español
@@ -345,7 +369,7 @@ const errorMessages = (errorMessage) => {
       return errorMessage;
   }
 }
-
+//Si la sesión está iniciada en el navegador
 const sesiónIniciada = () => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -367,24 +391,130 @@ const sesiónIniciada = () => {
 
 sesiónIniciada();
 
-//Función que envía correo de verificación al usuario que se registra
-const verify = () => {
-  let user = firebase.auth().currentUser;
-
-  user.updateProfile({
-    displayName: document.querySelector(".createAccountName").value
-  })
-  user.sendEmailVerification().then(function () {
-    modal("Te enviamos un  correo de autentificación");
-    console.log("autentificación");
-  }).catch(function (error) {
-    console.log("error");
-  });
-}
-
-// Initialize Cloud Firestore through Firebase
-var db = firebase.firestore();
-
 
 
 // //document.querySelector(".btnPost").addEventListener("click",newPostLostPet );
+
+
+//Nuevo post para mascotas en adopción
+function savePostAdoption(){
+	let name = document.querySelector(".nameA").value;
+	let description = document.querySelector(".descriptionA").value;
+	let details = document.querySelector(".detailsA").value;
+	let features = document.querySelector(".featuresA").value;
+  let contact = document.querySelector(".contactA").value;
+  let like=0;
+  
+db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
+    name: name,
+    description: description,
+    details: details,
+    features: features,
+    contact: contact, 
+    like:like,
+
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+    document.querySelector(".nameA").value = "";
+    document.querySelector(".descriptionA").value = "";
+    document.querySelector(".detailsA").value = "";
+    document.querySelector(".featuresA").value = "";
+    document.querySelector(".contactA").value = "";
+    showAdoptionPets();
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+}
+
+
+const printAdoptionPets=()=>{
+//leer documentos
+let tableAdopt = document.querySelector(".printInfoAdption"); //es donde se va imprimir la info de los usuarios
+console.log (tableAdopt);
+db.collection("adoptionPets").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
+cambio en la base de datos, lo refleja en la página */
+	tableAdopt.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
+	nuevos usuarios porque sino va a repetir los datos */
+    querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
+        console.log(`${doc.id} => ${doc.data().name}`);
+        //es para que jale la data de c/ usuario y la imprima en pantalla
+        tableAdopt.innerHTML += `
+        <tr>
+        <td>Nombre: ${doc.data().name}</td><br>
+        <td>Descripción: ${doc.data().description}</td><br>
+        <td>Convive con otras mascotas: ${doc.data().details}</td><br>
+        <td>Caracter: ${doc.data().features}</td><br>
+        <td>Contacto: ${doc.data().contact}</td><br>
+        <button  onclick="ConfirmDelete('${doc.id}')">Eliminar</button>
+        <div class= "likeCount"><button  id='${doc.id}' onclick="addLikes('${doc.id}', '${doc.data().like}')">Like</button>
+        </tr> `;
+    });
+    console.log(document.querySelector(".likeCount"));
+});
+}
+function ConfirmDeleteLostPet(id)
+{
+  var x = confirm("¿Estás seguro de eliminarlo?");
+  if (x)
+  eliminate(id);
+  else
+    return false;
+ }
+
+function ConfirmDelete(id)
+{
+  var x = confirm("¿Estás seguro de eliminarlo?");
+  if (x)
+  eliminateAdopt(id);
+  else
+    return false;
+ }
+//borrar documentos
+function eliminateAdopt(id){
+	db.collection("adoptionPets").doc(id).delete().then(function() {
+    console.log("Document successfully deleted!");
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+}); 
+}
+
+
+
+function showAdoptionPets (){
+  onNavItemClick("/adoptionPets").then(()=>{
+    printAdoptionPets();
+  });
+}
+function adoptionForm(){
+  onNavItemClick("/postAdoptionPets");
+}
+
+
+function addLikes(id, likes) {
+  likes++;
+
+  likes = parseInt(likes);
+  let washingtonRef = db.collection("adoptionPets").doc(id);
+
+  return washingtonRef
+    .update({
+      like: likes,
+      
+    }).then(function(){
+      let washingtonRef = (db.collection("adoptionPets").doc(id)).id;
+    
+       let buttonLike= document.getElementById(washingtonRef);
+        buttonLike.innerHTML+= " " + likes;
+      })
+    .then(function() {
+      console.log('Document successfully updated!');
+    })
+
+    .catch(function(error) {
+      // The document probably doesn't exist.
+      console.error('Error updating document: ', error);
+    });
+}

@@ -1,29 +1,3 @@
-// // var firebase = require("firebase");
-// //Sections ocultos
-// document.querySelector(".modal ").style.display = "none";
-// document.querySelector(".secondHeader").style.display = "none";
-// document.querySelector(".secondFooter").style.display = "none";
-
-// //Función que llama al formulario para crear una nueva cuenta
-// function newAccount(){
-//   document.querySelector(".createAccountPage").style.display = "block";
-//   document.querySelector(".welcomePage").style.display = "none";
-// }
-
-// document.querySelector(".createAccount").addEventListener("click", newAccount);
-
-
-
-// //Función que se ejecuta al dar click en crear una nueva cuenta
-// function createNewAccount(){
-//   //Obtenemos los valores de los inputs
-//     const name =document.querySelector(".createAccountName").value;
-//     const email = document.querySelector(".createAccountEmail").value;
-//     const password = document.querySelector(".createAccountPassword").value;
-//     firebaseNewAccount(email, password);
-// }
-
-// document.querySelector(".btnCreateAccount").addEventListener("click", createNewAccount);
 
 
 
