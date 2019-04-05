@@ -56,6 +56,8 @@ const firebaseLogIn = (email, password) => {
   firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
     observer();
 
+  }).then (function(){
+    showLostPet();
   })
     .catch(function (error) {
       // Handle Errors here.
@@ -107,45 +109,54 @@ const activeUser = (user) => {
 }
 
 // NEW VERSION (fusion)
-function edit(id, name, date, description, details, features, contact){
-  let elements = [];
-  elements.push(document.getElementsByTagName('td'));
-  for (let i = 0; i < elements.length; i++){
-     elements[i].innerHTML += elements[i];
-  }
-document.getElementsByTagName('td').value = name, date, description, details, features, contact; //es el nombre de la clase del input
-let btn = document.querySelector(".saveBtn");
-btn.innerHTML = "Editar";
-btn.onclick = function(){
-  let petTemplate = db.collection("lostsPets").doc(id);
-  let posts = (elements).value;
-  return petTemplate.update({
+ //editar documentos
+function editLostPost(id, name, date, description, details, features, contact){ //son los parametros
+  let saveBtn = document.querySelector(".saveBtn");
+  saveBtn.innerHTML="Editar";
+  eliminate(id);
+	 document.querySelector(".name").value = name; 
+	document.querySelector(".date").value = date;
+	document.querySelector(".description").value = description;
+	  document.querySelector(".details").value = details;
+	 document.querySelector(".features").value = features;
+	  document.querySelector(".contact").value = contact;
+
+
+	document.querySelector(".saveBtn") = saveBtn.innerHTML = 'edit';
+
+	saveBtn.onclick = function(){
+		let petTemplate = db.collection("users").doc(id);
+		let posts = document.querySelector(".printInfo").value;
+	
+return petTemplate.update({
     name: name,
     date: date,
     description: description,
     details: details,
     features: features,
     contact: contact, 
-    share: share,
-  })
-  .then(function() {
-        console.log("Document successfully updated!");
-        btn.innerHTML = "Guardar";
-        document.getElementsByTagName('td').value = "";
-        btn.innerHTML = ""
-        let select = document.getElementById("shareLost").value;
-        share = select;
-      })
-      .catch(function(error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
-      });
-}
+})
+.then(function() {
+    console.log("Document successfully updated!");
+    saveBtn.innerHTML = 'Editar';
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+
+	}
 }
 
 const lostForm= () =>{
-  onNavItemClick("/postLost");
+  onNavItemClick("/lostPet").then(
+    () => {
+      document.querySelector(".lostForm").style.display="block";
+    }
+  );
+ // onNavItemClick("/postLost");
 }
+
 showLostPet=()=>{
   onNavItemClick("/lostPet").then(
     () => {
@@ -154,7 +165,6 @@ showLostPet=()=>{
   );
   
 }
-
 
 //Nuevo post para mascotas perdidas
 function savePost(){
@@ -194,6 +204,7 @@ db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     document.querySelector(".features").value = "";
     document.querySelector(".contact").value = "";
     showLostPet();
+    document.querySelector(".lostForm").style.display="none";
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -222,8 +233,9 @@ cambio en la base de datos, lo refleja en la página */
         <td>Placa/Collar/Ropa: ${doc.data().details}</td><br>
         <td>Señas particulares: ${doc.data().features}</td><br>
         <td>Contacto: ${doc.data().contact}</td><br>
-        <td><button class="btnsWarning" onclick= edit('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')>Editar</button></td><br>
+        <td><button class="btnsWarning" onclick= "editLostPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
         <button onclick="ConfirmDeleteLostPet('${doc.id}')">Eliminar</button>
+        
         </tr> `;
     });
 });
