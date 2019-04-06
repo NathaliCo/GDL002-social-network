@@ -29,3 +29,16 @@ fetchContent(routes[window.location.pathname])
   .then(html => contentDiv.innerHTML = html)
   .then(() => buttons());
 
+
+
+window.onpopstate = () => {
+  fetchContent(routes[window.location.pathname])
+    .then(html => contentDiv.innerHTML = html);
+}
+
+let onNavItemClick = (pathName) => {
+  window.history.pushState({}, pathName, window.location.origin + pathName);
+  return fetchContent(routes[window.location.pathname])
+    .then(html => contentDiv.innerHTML = html)
+    .then(() => buttons());
+}

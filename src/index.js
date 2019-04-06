@@ -282,61 +282,9 @@ const close = () => {
     })
 }
 
-const socialNetwork = {
-  pageLogIn: pageLogIn,
-  pageCreateAccount: pageCreateAccount,
-  btnLogIn: btnLogIn,
-  firebaseNewAccount: firebaseNewAccount,
-  close: close,
-  showLostPet: showLostPet,
-  lostForm:lostForm,
-  savePost:savePost,
-  showAdoptionPets:showAdoptionPets,
-  adoptionForm:adoptionForm,
-  savePostAdoption:savePostAdoption,
-  showHelp:showHelp,
-};
 
-
-const buttons = () => {
-
-  const allButtons = document.querySelectorAll(".typeButton");
-  console.log(allButtons);
-  for (let i = 0; i < allButtons.length; i++) {
-    if (window.location.pathname == "/logInPage" || window.location.pathname == "/createAccount") {
-
-      allButtons[i].addEventListener("click", function (event) {
-        socialNetwork[event.target.dataset.next](document.getElementById(event.target.attributes.dataFirst.value).value,
-          document.getElementById(event.target.attributes.dataSecond.value).value);
-      });
-    }
-    else {
-
-      allButtons[i].addEventListener("click", function (event) {
-        socialNetwork[event.target.dataset.next]();
-      });
-    }
-  }
-
-}
 
 let contentDiv = document.querySelector('#firstContent');
-
-
-
-window.onpopstate = () => {
-  fetchContent(routes[window.location.pathname])
-    .then(html => contentDiv.innerHTML = html);
-}
-
-let onNavItemClick = (pathName) => {
-  window.history.pushState({}, pathName, window.location.origin + pathName);
-  return fetchContent(routes[window.location.pathname])
-    .then(html => contentDiv.innerHTML = html)
-    .then(() => buttons());
-}
-
-
 
 
 function pageLogIn() {
@@ -347,9 +295,6 @@ function pageLogIn() {
 function pageCreateAccount() {
   onNavItemClick('/createAccount');
 }
-
-
-
 
 //Función que llama a la información que va dentro del formulario
 function modal(message) {
@@ -362,6 +307,9 @@ function modal(message) {
 
 
 
+function showHelp (){
+  onNavItemClick('/help');
+}
 
 //Función para mostrar mensajes de error en español
 const errorMessages = (errorMessage) => {

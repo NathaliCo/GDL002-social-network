@@ -100,13 +100,16 @@
 //<button class="button jsBtn" data-next="logout" type="button" id="signIn">Log out</button>
 //<button class="postButton jsBtn" data-next="publish" type="button" id="publish">Publish</button>
 //<button class="button jsBtn" data-next="register" dataFirst="email" dataSecond="password" type="button" id="signUpBtn">Sign up!</button>
+
+
+
 function pageInformation (){
   onNavItemClick('/aboutUs');
   }
    document.querySelector(".pageInformation").addEventListener("click", pageInformation);
   
-    function goWelcomePage (){
-      onNavItemClick(`/firstPage`);
+function goWelcomePage (){
+  onNavItemClick(`/firstPage`);
     }
     document.querySelector(".homeBtn").addEventListener("click", goWelcomePage);
 
@@ -114,7 +117,5 @@ const endSesion =()=>{
   onNavItemClick(`/firstPage`);
   close();
 }
-
 document.querySelector(".btnLogOut").addEventListener("click", endSesion);
-
 
