@@ -1,3 +1,7 @@
+const showHelp =()=>{
+  onNavItemClick('/help');
+}
+
 // Inicia Cloud Firestore a traves de Firebase
 var db = firebase.firestore();
 // Crear cuenta
@@ -111,6 +115,8 @@ const activeUser = (user) => {
 // NEW VERSION (fusion)
  //editar documentos
 function editLostPost(id, name, date, description, details, features, contact){ //son los parametros
+  document.querySelector(".lostForm").style.display="block";
+  document.querySelector("#lostForm").style.display="none";
   let saveBtn = document.querySelector(".saveBtn");
   saveBtn.innerHTML="Editar";
   eliminate(id);
@@ -152,6 +158,18 @@ const lostForm= () =>{
   onNavItemClick("/lostPet").then(
     () => {
       document.querySelector(".lostForm").style.display="block";
+      document.querySelector("#lostForm").style.display="none";
+    }
+  );
+ // onNavItemClick("/postLost");
+}
+
+
+const adoptionForm= () =>{
+  onNavItemClick("/adoptionPets").then(
+    () => {
+      document.querySelector(".adoptionForm").style.display="block";
+      document.querySelector("#adoptionForm").style.display="none";
     }
   );
  // onNavItemClick("/postLost");
@@ -161,6 +179,8 @@ showLostPet=()=>{
   onNavItemClick("/lostPet").then(
     () => {
       printLostPets();
+      document.querySelector(".lostForm").style.display="none";
+      document.querySelector("#lostForm").style.display="block";
     }
   );
   
@@ -205,6 +225,7 @@ db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     document.querySelector(".contact").value = "";
     showLostPet();
     document.querySelector(".lostForm").style.display="none";
+    document.querySelector("#lostForm").style.display="block";
 })
 .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -277,6 +298,7 @@ const socialNetwork = {
   showAdoptionPets:showAdoptionPets,
   adoptionForm:adoptionForm,
   savePostAdoption:savePostAdoption,
+  showHelp:showHelp,
 };
 
 
@@ -314,7 +336,9 @@ let routes = {
   '/postLost': `./pages/postLost.html`,
   '/adoptionPets':`./pages/adoptionPets.html`,
   '/postAdoptionPets':`./pages/postAdoptionPets.html`,
+  '/help':`./help.html`,
 };
+
 
 window.onpopstate = () => {
   fetchContent(routes[window.location.pathname])
@@ -451,6 +475,8 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     document.querySelector(".detailsA").value = "";
     document.querySelector(".featuresA").value = "";
     document.querySelector(".contactA").value = "";
+    document.querySelector(".adoptionForm").style.display="none";
+    document.querySelector("#adoptionForm").style.display="block";
   
     showAdoptionPets();
 })
@@ -482,10 +508,51 @@ cambio en la base de datos, lo refleja en la página */
         <td>Contacto: ${doc.data().contact}</td><br>
         <button  onclick="ConfirmDelete('${doc.id}')">Eliminar</button>
         <div class= "likeCount"><button  id='${doc.id}' onclick="addLikes('${doc.id}', '${doc.data().like}')">Like</button>
+        <td><button class="btnsWarning" onclick= "editAdoptionPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
         </tr> `;
     });
     console.log(document.querySelector(".likeCount"));
 });
+}
+
+
+function editAdoptionPost(id, name, date, description, details, features, contact){ //son los parametros
+  document.querySelector(".adoptionForm").style.display="block";
+  document.querySelector("#adoptionForm").style.display="none";
+  let saveBtn = document.querySelector(".saveBtn");
+  saveBtn.innerHTML="Editar";
+  eliminateAdopt(id);
+	 document.querySelector(".nameA").value = name; 
+	document.querySelector(".descriptionA").value = description;
+	  document.querySelector(".detailsA").value = details;
+	 document.querySelector(".featuresA").value = features;
+	  document.querySelector(".contactA").value = contact;
+
+
+	document.querySelector(".saveBtn") = saveBtn.innerHTML = 'edit';
+
+	saveBtn.onclick = function(){
+		let petTemplate = db.collection("users").doc(id);
+		let posts = document.querySelector(".printInfo").value;
+	
+return petTemplate.update({
+    name: name,
+    date: date,
+    description: description,
+    details: details,
+    features: features,
+    contact: contact, 
+})
+.then(function() {
+    console.log("Document successfully updated!");
+    saveBtn.innerHTML = 'Editar';
+})
+.catch(function(error) {
+    // The document probably doesn't exist.
+    console.error("Error updating document: ", error);
+});
+
+	}
 }
 function ConfirmDeleteLostPet(id)
 {
@@ -518,11 +585,14 @@ function eliminateAdopt(id){
 function showAdoptionPets (){
   onNavItemClick("/adoptionPets").then(()=>{
     printAdoptionPets();
+    document.querySelector(".adoptionForm").style.display="none";
+    document.querySelector("#adoptionForm").style.display="block";
   });
 }
-function adoptionForm(){
-  onNavItemClick("/postAdoptionPets");
-}
+
+// function adoptionForm(){
+//   onNavItemClick("/postAdoptionPets");
+// }
 
 
 function addLikes(id, likes) {
