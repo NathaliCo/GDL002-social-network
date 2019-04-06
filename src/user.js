@@ -1,4 +1,3 @@
-
 function firebaseNewAccount () {
     name =document.querySelector(".createAccountName").value;
     email = document.querySelector(".createAccountEmail").value;
