@@ -104,7 +104,7 @@
 
 
 function pageInformation (){
-  onNavItemClick('/aboutUs');
+  onNavItemClick(`/aboutUs`);
   }
    document.querySelector(".pageInformation").addEventListener("click", pageInformation);
   

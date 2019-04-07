@@ -16,7 +16,7 @@ function firebaseNewAccount () {
     
        });
     }
-    var user = firebase.auth().currentUser;
+    
     //Verificar cuenta
     //Función que envía correo de verificación al usuario que se registra
     const verify = () => {
@@ -72,13 +72,9 @@ function firebaseNewAccount () {
     //Función que permite saber si el usurio está activo, es decir que está dentro de su cuenta y abre la pantalla de la red social
     const observer = () => {
       firebase.auth().onAuthStateChanged(function (user) {
+         user = firebase.auth().currentUser;
         if (user) {
           activeUser(user);
-          document.querySelector(".firstHeader").style.display = "none";
-      document.querySelector(".firstFooter").style.display = "none";
-      document.querySelector(".secondHeader").style.display = "block";
-      document.querySelector(".secondFooter").style.display = "block";
-      document.querySelector("#firstContent").innerHTML="";
           // User is signed in.
           let displayName = user.displayName;
         
@@ -92,22 +88,45 @@ function firebaseNewAccount () {
           let providerData = user.providerData;
           
         } else {
-          
+          console.log("no existe usuario activo");
         }
-    
       });
     }
     
     //Función que desactiva los formularios de registro y de inicio de sesión y activa la pantalla de la red social
-    const activeUser = (user) => {
-      user = user;
-      if (user.emailVerified) {
-  
-      } else {
-       
-        const errorMessage = "Verifica tu cuenta";
-        console.log("error active");
-        modal(errorMessage);
-      }
-    }
     
+    const activeUser = (user) => {
+   if (user.emailVerified) {
+    document.querySelector(".firstHeader").style.display = "none";
+    document.querySelector(".firstFooter").style.display = "none";
+    document.querySelector(".secondHeader").style.display = "block";
+    document.querySelector(".secondFooter").style.display = "block";
+    document.querySelector("#firstContent").innerHTML="";
+       } else {
+        
+         const errorMessage = "Verifica tu cuenta";
+        console.log("error active");
+         modal(errorMessage);
+         endSesion();
+       }
+     }
+    
+     const sesionIniciada = () => {
+      user = firebase.auth().currentUser;
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          if (user.emailVerified){
+          document.querySelector(".firstHeader").style.display = "none";
+          document.querySelector(".firstFooter").style.display = "none";
+          document.querySelector(".secondHeader").style.display = "block";
+          document.querySelector(".secondFooter").style.display = "block";
+          document.querySelector("#firstContent").innerHTML="";
+          
+        } else {
+          endSesion();
+          // No user is signed in.
+        }
+        }
+      });
+    }
+    sesionIniciada();

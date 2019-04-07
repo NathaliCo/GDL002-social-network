@@ -18,31 +18,6 @@ const lostForm= () =>{
 })
 }
 
-
-// .then (()=>{
-//   var fileButton = document.querySelector("#fileButton");
-//   fileButton.addEventListener('change', function(e){
-//     var file = e.target.files[0];
-//     console.log(file.name);
-//     var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
-//     var task = storageRef.put(file);
-//     var downloadURL = task.snapshot.ref.getDownloadURL().then((url) => {
-   
-//       this.picture= url;
-// console.log(this.picture);
-
-//     }).then(function(){
-//       document.querySelector("#img").value = ;
-//     })
-// });
-
-// onNavItemClick("/postLost");
-
-
-
-
-
-
 const adoptionForm= () =>{
   onNavItemClick("/adoptionPets").then(
     () => {
@@ -50,7 +25,7 @@ const adoptionForm= () =>{
       document.querySelector("#adoptionForm").style.display="none";
     }).then (() => {
       var fileButton = document.querySelector("#fileButtonAdopt");
-    fileButton.addEventListener('change', function(e){
+      fileButton.addEventListener('change', function(e){
       var file = e.target.files[0];
       console.log(file.name);
       var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
@@ -73,12 +48,7 @@ showLostPet=()=>{
     });
 }
 
-
-
-
-
 let contentDiv = document.querySelector('#firstContent');
-
 
 function pageLogIn() {
   onNavItemClick("/logIn");
@@ -96,9 +66,6 @@ function modal(message) {
   document.querySelector(".modal-body").innerHTML = message;
 
 }
-
-
-
 
 function showHelp (){
   onNavItemClick('/help');
@@ -126,29 +93,10 @@ document.querySelector(".firstHeader").style.display = "block";
 document.querySelector(".firstFooter").style.display = "block";
 document.querySelector(".secondHeader").style.display = "none";
 document.querySelector(".secondFooter").style.display = "none";
+
+
 //Si la sesión está iniciada en el navegador
-/*const sesiónIniciada = () => {
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      
-      document.querySelector(".firstHeader").style.display = "none";
-      document.querySelector(".firstFooter").style.display = "none";
-      document.querySelector(".secondHeader").style.display = "block";
-      document.querySelector(".secondFooter").style.display = "block";
-      document.querySelector("#firstContent").innerHTML="";
-    } else {
-      document.querySelector(".firstHeader").style.display = "block";
-      document.querySelector(".firstFooter").style.display = "block";
-      document.querySelector(".secondHeader").style.display = "none";
-      document.querySelector(".secondFooter").style.display = "none";
-      // No user is signed in.
-    }
-  });
-}
 
-sesiónIniciada();
-
-*/
 
 // var fileButton = document.querySelector("#fileButton");
 // fileButton.addEventListener('change', function(e){
