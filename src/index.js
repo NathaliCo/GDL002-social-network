@@ -1,12 +1,46 @@
 const lostForm= () =>{
-  onNavItemClick("/lostPet").then(
-    () => {
+  onNavItemClick("/lostPet").then(() => {
       document.querySelector(".lostForm").style.display="block";
       document.querySelector("#lostForm").style.display="none";
-    }
-  );
- // onNavItemClick("/postLost");
+    }).then (() => {
+    var fileButton = document.querySelector("#fileButton");
+  fileButton.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    console.log(file.name);
+    var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+    var task = storageRef.put(file);
+    
+    var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
+      
+      document.querySelector("#img").value =result;
+  })
+  });
+})
 }
+
+
+// .then (()=>{
+//   var fileButton = document.querySelector("#fileButton");
+//   fileButton.addEventListener('change', function(e){
+//     var file = e.target.files[0];
+//     console.log(file.name);
+//     var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+//     var task = storageRef.put(file);
+//     var downloadURL = task.snapshot.ref.getDownloadURL().then((url) => {
+   
+//       this.picture= url;
+// console.log(this.picture);
+
+//     }).then(function(){
+//       document.querySelector("#img").value = ;
+//     })
+// });
+
+// onNavItemClick("/postLost");
+
+
+
+
 
 
 const adoptionForm= () =>{
@@ -25,9 +59,7 @@ showLostPet=()=>{
       printLostPets();
       document.querySelector(".lostForm").style.display="none";
       document.querySelector("#lostForm").style.display="block";
-    }
-  );
-  
+    });
 }
 
 
@@ -101,3 +133,28 @@ const sesiónIniciada = () => {
 
 sesiónIniciada();
 
+
+
+// var fileButton = document.querySelector("#fileButton");
+// fileButton.addEventListener('change', function(e){
+//   var file = e.target.files[0];
+
+
+//   console.log(file);
+//   var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+//   var uploadTask = storageRef.put(file);
+//   uploadTask.on ('state_changed', function(snapshot){
+//   },function(error){
+//   },function(){
+//     var postKey = firebase.database().ref('lostsPets/').push().key;
+//     var downloadURL =uploadTask.snapshot.downloadURL;
+//     var updates = {};
+//     var postData= {
+//       url:downloadURL,
+//       caption: $("#imageCaption").val(),
+//     };
+//     updates['/lostsPets/' + postKey] =postData;
+//     firebase.database().ref().update(updates);
+//     console.log (downloadURL);
+//   });
+// });

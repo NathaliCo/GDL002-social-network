@@ -61,6 +61,8 @@ function savePost(){
   console.log (whoId);
   whoId=whoId
   who=who;
+  var fileButton = document.querySelector("#fileButton").value;
+  var href=document.querySelector("#img").value;
 db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     name: name,
     date: date,
@@ -71,7 +73,8 @@ db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
     share:share,
     who:who,
     whoId:whoId,
-
+    img: fileButton,
+    location:href,
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
@@ -99,12 +102,14 @@ console.log (table);
 db.collection("lostsPets").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
 cambio en la base de datos, lo refleja en la página */
 	table.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
-  nuevos usuarios porque sino va a repetir los datos */
-    querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
+  nuevos usuarios porque sino va a repetir los datos */ 
+  querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
         console.log(`${doc.id} => ${doc.data().name}`);
+
         //es para que jale la data de c/ usuario y la imprima en pantalla
         table.innerHTML += `
-        <tr>
+        <tr><br>
+      <td><img class = "picture" src = "${doc.data().location}"></td><br>
         <td> ${doc.data().who}</td><br>
         <td>Nombre: ${doc.data().name}</td><br>
         <td>Visto por última vez: ${doc.data().date}</td><br>
@@ -138,7 +143,7 @@ const close = () => {
       document.querySelector(".secondFooter").style.display = "none";
       document.querySelector("#firstContent").style.display = "block";
       document.querySelector("#secondContent").style.display = "none";
-
+      document.querySelector("#img").value="";
     }).catch(function (error) {
       console.log(error);
     })
@@ -287,8 +292,6 @@ function eliminateAdopt(id){
 }); 
 }
 
-
-
 function showAdoptionPets (){
   onNavItemClick("/adoptionPets").then(()=>{
     printAdoptionPets();
@@ -296,11 +299,6 @@ function showAdoptionPets (){
     document.querySelector("#adoptionForm").style.display="block";
   });
 }
-
-// function adoptionForm(){
-//   onNavItemClick("/postAdoptionPets");
-// }
-
 
 function addLikes(id, likes) {
   likes++;

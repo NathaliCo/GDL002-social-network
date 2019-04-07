@@ -313,3 +313,24 @@ padding: auto;
         display:block;
         font-size: 15px;
     }
+
+
+    label.upload-group{
+      width: 100px;
+      height: 40px;
+      text-align: center;
+      background-color: red;
+      padding: 5 5 5 5;
+    }
+    #img{
+      display:none;
+    }
+    
+    #imgAdopt{
+      display:none;
+    }
+
+    .picture{
+      width: 20rem;
+      height: auto;
+    }
