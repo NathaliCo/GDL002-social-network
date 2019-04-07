@@ -4,24 +4,47 @@ var db = firebase.firestore();
 
 // NEW VERSION (fusion)
  //editar documentos
-function editLostPost(id, name, date, description, details, features, contact){ //son los parametros
+function editLostPost(id, name, date, description, details, features, contact,select, user, share, who, whoId,fileButton, href){ //son los parametros
+  var fileButton = document.querySelector("#fileButton");
+  fileButton.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    console.log(file.name);
+    var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+    var task = storageRef.put(file);
+    
+    var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
+      
+      document.querySelector("#img").value =result;
+  })
+  });
+  
+  //href= document.querySelector(".picture").getAttribute("src");
+  document.querySelector("#img").value =href;
+  eliminate(id);
   document.querySelector(".lostForm").style.display="block";
   document.querySelector("#lostForm").style.display="none";
   let saveBtn = document.querySelector(".saveBtn");
   saveBtn.innerHTML="Editar";
-  eliminate(id);
+  //href=document.querySelector("#img").value;
 	 document.querySelector(".name").value = name; 
 	document.querySelector(".date").value = date;
 	document.querySelector(".description").value = description;
 	  document.querySelector(".details").value = details;
 	 document.querySelector(".features").value = features;
-	  document.querySelector(".contact").value = contact;
+    document.querySelector(".contact").value = contact;
+    console.log(href);
 
-
-	document.querySelector(".saveBtn") = saveBtn.innerHTML = 'edit';
-
+   select = document.querySelector(".shareLost").value;
+   user = firebase.auth().currentUser;
+  share = select;
+   who = user.displayName;
+  console.log(who);
+   whoId =user.uid;
+  console.log (whoId);
+  whoId=whoId
+  who=who;
 	saveBtn.onclick = function(){
-		let petTemplate = db.collection("users").doc(id);
+		let petTemplate = db.collection("lostsPets").doc(id);
 		let posts = document.querySelector(".printInfo").value;
 	
 return petTemplate.update({
@@ -31,10 +54,16 @@ return petTemplate.update({
     details: details,
     features: features,
     contact: contact, 
+    share: share,
+    who: who,
+    whoId: whoId,
+    img: fileButton,
+    location:  href,
 })
 .then(function() {
     console.log("Document successfully updated!");
     saveBtn.innerHTML = 'Editar';
+   // console.log(location);
 })
 .catch(function(error) {
     // The document probably doesn't exist.
@@ -180,6 +209,7 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     share:share,
     who:who,
     whoId:whoId,
+    img:fileButton,
     location:href,
 })
 .then(function(docRef) {
@@ -230,7 +260,20 @@ cambio en la base de datos, lo refleja en la página */
 }
 
 
-function editAdoptionPost(id, name, date, description, details, features, contact){ //son los parametros
+function editAdoptionPost(id, name, date, description, details, features, contact,select, user, share, who, whoId,fileButton, href){ //son los parametros
+  var fileButton = document.querySelector("#fileButtonAdopt");
+  fileButton.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    console.log(file.name);
+    var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+    var task = storageRef.put(file);
+    
+    var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
+      
+      document.querySelector("#adoptImg").value =result;
+  })
+  });
+  document.querySelector("#adoptImg").value =href;
   document.querySelector(".adoptionForm").style.display="block";
   document.querySelector("#adoptionForm").style.display="none";
   let saveBtn = document.querySelector(".saveBtn");
@@ -242,8 +285,17 @@ function editAdoptionPost(id, name, date, description, details, features, contac
 	 document.querySelector(".featuresA").value = features;
 	  document.querySelector(".contactA").value = contact;
 
-
-	document.querySelector(".saveBtn") = saveBtn.innerHTML = 'edit';
+    select = document.querySelector(".shareAdoption").value;
+    user = firebase.auth().currentUser;
+   share = select;
+    who = user.displayName;
+   console.log(who);
+    whoId =user.uid;
+   console.log (whoId);
+   whoId=whoId
+   who=who;
+ 
+	
 
 	saveBtn.onclick = function(){
 		let petTemplate = db.collection("users").doc(id);
@@ -256,6 +308,11 @@ return petTemplate.update({
     details: details,
     features: features,
     contact: contact, 
+    share: share,
+    who: who,
+    whoId: whoId,
+    img: fileButton,
+    location:  href,
 })
 .then(function() {
     console.log("Document successfully updated!");
