@@ -143,7 +143,7 @@ const close = () => {
       document.querySelector(".secondFooter").style.display = "none";
       document.querySelector("#firstContent").style.display = "block";
       document.querySelector("#secondContent").style.display = "none";
-      document.querySelector("#img").value="";
+      
     }).catch(function (error) {
       console.log(error);
     })
@@ -168,7 +168,8 @@ function savePostAdoption(){
     console.log (whoId);
     whoId=whoId
     who=who;
-  
+    var fileButton = document.querySelector("#fileButtonAdopt").value;
+    var href=document.querySelector("#adoptImg").value;
 db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     name: name,
     description: description,
@@ -179,6 +180,7 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     share:share,
     who:who,
     whoId:whoId,
+    location:href,
 })
 .then(function(docRef) {
     console.log("Document written with ID: ", docRef.id);
@@ -189,7 +191,6 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     document.querySelector(".contactA").value = "";
     document.querySelector(".adoptionForm").style.display="none";
     document.querySelector("#adoptionForm").style.display="block";
-  
     showAdoptionPets();
 })
 .catch(function(error) {
@@ -212,6 +213,7 @@ cambio en la base de datos, lo refleja en la página */
         //es para que jale la data de c/ usuario y la imprima en pantalla
         tableAdopt.innerHTML += `
         <tr>
+        <td><img class = "pictureAdopt" src = "${doc.data().location}"></td><br>
         <td>${doc.data().who}</td><br>
         <td>Nombre: ${doc.data().name}</td><br>
         <td>Descripción: ${doc.data().description}</td><br>

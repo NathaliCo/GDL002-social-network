@@ -326,11 +326,11 @@ padding: auto;
       display:none;
     }
     
-    #imgAdopt{
+    #adoptImg{
       display:none;
     }
 
-    .picture{
+    .picture, .pictureAdopt{
       width: 20rem;
       height: auto;
     }

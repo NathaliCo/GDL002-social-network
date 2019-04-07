@@ -48,10 +48,21 @@ const adoptionForm= () =>{
     () => {
       document.querySelector(".adoptionForm").style.display="block";
       document.querySelector("#adoptionForm").style.display="none";
-    }
-  );
- // onNavItemClick("/postLost");
-}
+    }).then (() => {
+      var fileButton = document.querySelector("#fileButtonAdopt");
+    fileButton.addEventListener('change', function(e){
+      var file = e.target.files[0];
+      console.log(file.name);
+      var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+      var task = storageRef.put(file);
+      
+      var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
+        
+        document.querySelector("#adoptImg").value =result;
+    })
+    });
+  })
+  }
 
 showLostPet=()=>{
   onNavItemClick("/lostPet").then(
