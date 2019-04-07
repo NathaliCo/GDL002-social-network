@@ -74,6 +74,11 @@ function firebaseNewAccount () {
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           activeUser(user);
+          document.querySelector(".firstHeader").style.display = "none";
+      document.querySelector(".firstFooter").style.display = "none";
+      document.querySelector(".secondHeader").style.display = "block";
+      document.querySelector(".secondFooter").style.display = "block";
+      document.querySelector("#firstContent").innerHTML="";
           // User is signed in.
           let displayName = user.displayName;
         
@@ -97,6 +102,7 @@ function firebaseNewAccount () {
     const activeUser = (user) => {
       user = user;
       if (user.emailVerified) {
+  
       } else {
        
         const errorMessage = "Verifica tu cuenta";

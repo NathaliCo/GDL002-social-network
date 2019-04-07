@@ -122,8 +122,12 @@ const errorMessages = (errorMessage) => {
       return errorMessage;
   }
 }
+document.querySelector(".firstHeader").style.display = "block";
+document.querySelector(".firstFooter").style.display = "block";
+document.querySelector(".secondHeader").style.display = "none";
+document.querySelector(".secondFooter").style.display = "none";
 //Si la sesión está iniciada en el navegador
-const sesiónIniciada = () => {
+/*const sesiónIniciada = () => {
   firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       
@@ -144,7 +148,7 @@ const sesiónIniciada = () => {
 
 sesiónIniciada();
 
-
+*/
 
 // var fileButton = document.querySelector("#fileButton");
 // fileButton.addEventListener('change', function(e){
