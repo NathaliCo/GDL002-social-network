@@ -9,30 +9,26 @@ function editLostPost(id, name, date, description, details, features, contact,se
   fileButton.addEventListener('change', function(e){
     var file = e.target.files[0];
     console.log(file.name);
-    var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+    var storageRef = firebase.storage().ref('petPictures/' + file.name);
     var task = storageRef.put(file);
     
     var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
       
-      document.querySelector("#img").value =result;
   })
   });
   
-  //href= document.querySelector(".picture").getAttribute("src");
   document.querySelector("#img").value =href;
-  eliminate(id);
   document.querySelector(".lostForm").style.display="block";
   document.querySelector("#lostForm").style.display="none";
   let saveBtn = document.querySelector(".saveBtn");
   saveBtn.innerHTML="Editar";
-  //href=document.querySelector("#img").value;
+  eliminate(id);
 	 document.querySelector(".name").value = name; 
 	document.querySelector(".date").value = date;
 	document.querySelector(".description").value = description;
 	  document.querySelector(".details").value = details;
 	 document.querySelector(".features").value = features;
     document.querySelector(".contact").value = contact;
-    console.log(href);
 
    select = document.querySelector(".shareLost").value;
    user = firebase.auth().currentUser;
@@ -75,6 +71,7 @@ return petTemplate.update({
 
 //Nuevo post para mascotas perdidas
 function savePost(){
+  
 	let name = document.querySelector(".name").value;
 	let date = document.querySelector(".date").value;
 	let description = document.querySelector(".description").value;
@@ -265,7 +262,7 @@ function editAdoptionPost(id, name, date, description, details, features, contac
   fileButton.addEventListener('change', function(e){
     var file = e.target.files[0];
     console.log(file.name);
-    var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+    var storageRef = firebase.storage().ref('petPictures/' + file.name);
     var task = storageRef.put(file);
     
     var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
@@ -279,7 +276,7 @@ function editAdoptionPost(id, name, date, description, details, features, contac
   let saveBtn = document.querySelector(".saveBtn");
   saveBtn.innerHTML="Editar";
   eliminateAdopt(id);
-	 document.querySelector(".nameA").value = name; 
+   document.querySelector(".nameA").value = name; 
 	document.querySelector(".descriptionA").value = description;
 	  document.querySelector(".detailsA").value = details;
 	 document.querySelector(".featuresA").value = features;
@@ -295,15 +292,13 @@ function editAdoptionPost(id, name, date, description, details, features, contac
    whoId=whoId
    who=who;
  
-	
 
 	saveBtn.onclick = function(){
-		let petTemplate = db.collection("users").doc(id);
-		let posts = document.querySelector(".printInfo").value;
+		let petTemplate = db.collection("adoptionPets").doc(id);
+	//let posts = document.querySelector(".printInfo").value;
 	
 return petTemplate.update({
     name: name,
-    date: date,
     description: description,
     details: details,
     features: features,

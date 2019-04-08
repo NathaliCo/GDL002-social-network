@@ -62,47 +62,6 @@
 // }
 //  document.querySelector(".btnFacebook").addEventListener("click", facebookAccount);
 
-//  /*Menú lateral*/
-//  function openNav() {
-//   document.getElementById("sideNavigation").style.width = "250px";
-//   document.getElementById("main").style.marginLeft = "250px";
-// }
-
-// function closeNav() {
-//   document.getElementById("sideNavigation").style.width = "0";
-// }
-
-// const profileUser=()=>{
-//   document.querySelector(".profile").style.display = "block";
-// }
-
-// document.querySelector(".current").addEventListener("click", profileUser);
-
-// const lostPets= ()=>{
-//   document.querySelector(".lostPets").style.display="block";
-
-// }
-// document.querySelector(".lostBtn").addEventListener("click", lostPets);
-
-// const postLostPet = () =>{
-//   document.querySelector(".postLosts").style.display = "block";
-// }
-
-// document.querySelector (".postForm").addEventListener("click", postLostPet);
-
-
-
-// if (window.location.pathname =="/firstPage"){
-//   document.querySelector(".logIn").addEventListener("click", pageLogIn );
-// }
-
-
-//<button class="button jsBtn" data-next="logout" type="button" id="signIn">Log out</button>
-//<button class="postButton jsBtn" data-next="publish" type="button" id="publish">Publish</button>
-//<button class="button jsBtn" data-next="register" dataFirst="email" dataSecond="password" type="button" id="signUpBtn">Sign up!</button>
-
-
-
 function pageInformation (){
   onNavItemClick(`/aboutUs`);
   }

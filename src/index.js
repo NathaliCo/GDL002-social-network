@@ -7,20 +7,22 @@ const lostForm= () =>{
   fileButton.addEventListener('change', function(e){
     var file = e.target.files[0];
     console.log(file.name);
-    var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+    var storageRef = firebase.storage().ref('petPictures/' + file.name);
     var task = storageRef.put(file);
     
+    
     var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
-      
+      console.log(result);
+      console.log (downloadURL);
       document.querySelector("#img").value =result;
-  })
+  
+    })
   });
 })
 }
 
 const adoptionForm= () =>{
-  onNavItemClick("/adoptionPets").then(
-    () => {
+  onNavItemClick("/adoptionPets").then(() => {
       document.querySelector(".adoptionForm").style.display="block";
       document.querySelector("#adoptionForm").style.display="none";
     }).then (() => {
@@ -28,7 +30,7 @@ const adoptionForm= () =>{
       fileButton.addEventListener('change', function(e){
       var file = e.target.files[0];
       console.log(file.name);
-      var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
+      var storageRef = firebase.storage().ref('petPictures/' + file.name);
       var task = storageRef.put(file);
       
       var downloadURL = task.snapshot.ref.getDownloadURL().then(function (result){
@@ -61,10 +63,7 @@ function pageCreateAccount() {
 
 //Función que llama a la información que va dentro del formulario
 function modal(message) {
-  let btn = document.querySelector(".modalBtn");
-  btn.classList.add("btn-primary")
-  document.querySelector(".modal-body").innerHTML = message;
-
+  document.querySelector("#errors").innerHTML = message;
 }
 
 function showHelp (){
@@ -94,30 +93,3 @@ document.querySelector(".firstFooter").style.display = "block";
 document.querySelector(".secondHeader").style.display = "none";
 document.querySelector(".secondFooter").style.display = "none";
 
-
-//Si la sesión está iniciada en el navegador
-
-
-// var fileButton = document.querySelector("#fileButton");
-// fileButton.addEventListener('change', function(e){
-//   var file = e.target.files[0];
-
-
-//   console.log(file);
-//   var storageRef = firebase.storage().ref('mis_fotos/' + file.name);
-//   var uploadTask = storageRef.put(file);
-//   uploadTask.on ('state_changed', function(snapshot){
-//   },function(error){
-//   },function(){
-//     var postKey = firebase.database().ref('lostsPets/').push().key;
-//     var downloadURL =uploadTask.snapshot.downloadURL;
-//     var updates = {};
-//     var postData= {
-//       url:downloadURL,
-//       caption: $("#imageCaption").val(),
-//     };
-//     updates['/lostsPets/' + postKey] =postData;
-//     firebase.database().ref().update(updates);
-//     console.log (downloadURL);
-//   });
-// });

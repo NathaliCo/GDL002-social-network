@@ -63,7 +63,7 @@ function firebaseNewAccount () {
           modal(logInError);
           console.log(error.message);
           console.log(error);
-          document.querySelector(".btn").setAttribute("class", "btnCreateAccount modalBtn");
+         // document.querySelector(".btnLogIn").setAttribute("class", "btnCreateAccount modalBtn");
           // ...
     
         });
@@ -116,6 +116,7 @@ function firebaseNewAccount () {
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           if (user.emailVerified){
+            showLostPet();
           document.querySelector(".firstHeader").style.display = "none";
           document.querySelector(".firstFooter").style.display = "none";
           document.querySelector(".secondHeader").style.display = "block";
