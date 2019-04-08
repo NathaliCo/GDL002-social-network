@@ -1,10 +1,7 @@
-
-
-
-//  function logKey(e) {
-//    key = (document.all) ? e.keyCode : e.which;
-//    if (key==13) btnLogIn();
-//  }
+ function logKey(e) {
+    key = (document.all) ? e.keyCode : e.which;
+    if (key==13) btnLogIn();
+  }
 
 // document.querySelector(".btnLogOut").addEventListener("click", close);
 
@@ -70,7 +67,7 @@ function pageInformation (){
 function goWelcomePage (){
   onNavItemClick(`/firstPage`);
     }
-    document.querySelector(".homeBtn").addEventListener("click", goWelcomePage);
+    
 
 const endSesion =()=>{
   onNavItemClick(`/firstPage`);

@@ -11,6 +11,7 @@ const socialNetwork = {
     adoptionForm:adoptionForm,
     savePostAdoption:savePostAdoption,
     showHelp:showHelp,
+    goWelcomePage:goWelcomePage,
   };
   
   
