@@ -121,16 +121,13 @@ db.collection("lostsPets").add({ //agrega un ID automatico a cada usuario
 }
 
 
-const printLostPets=()=>{
+const printLostPets=(table)=>{
 //leer documentos
-let table = document.querySelector(".printInfo"); //es donde se va imprimir la info de los usuarios
-console.log (table);
 db.collection("lostsPets").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
 cambio en la base de datos, lo refleja en la página */
 	table.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
   nuevos usuarios porque sino va a repetir los datos */ 
   querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
-        console.log(`${doc.id} => ${doc.data().name}`);
 
         //es para que jale la data de c/ usuario y la imprima en pantalla
         table.innerHTML += `
@@ -143,8 +140,8 @@ cambio en la base de datos, lo refleja en la página */
         <td>Placa/Collar/Ropa: ${doc.data().details}</td><br>
         <td>Señas particulares: ${doc.data().features}</td><br>
         <td>Contacto: ${doc.data().contact}</td><br>
-        <td><button class="btnsWarning" onclick= "editLostPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
-        <button onclick="ConfirmDeleteLostPet('${doc.id}')">Eliminar</button>
+        <td><button class="btnsWarning hidden" onclick= "editLostPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
+        <button class= "hidden" onclick="ConfirmDeleteLostPet('${doc.id}')">Eliminar</button>
         
         </tr> `;
     });
@@ -210,7 +207,7 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
     location:href,
 })
 .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
+    
     document.querySelector(".nameA").value = "";
     document.querySelector(".descriptionA").value = "";
     document.querySelector(".detailsA").value = "";
@@ -227,18 +224,15 @@ db.collection("adoptionPets").add({ //agrega un ID automatico a cada usuario
 }
 
 
-const printAdoptionPets=()=>{
+const printAdoptionPets=(table)=>{
 //leer documentos
-let tableAdopt = document.querySelector(".printInfoAdption"); //es donde se va imprimir la info de los usuarios
-console.log (tableAdopt);
 db.collection("adoptionPets").onSnapshot((querySnapshot) => { /*el onSnapshot escucha  cada  vez que se haga un 
 cambio en la base de datos, lo refleja en la página */
-	tableAdopt.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
+	table.innerHTML = ""; /*es para que la table de HTML, este vacía y se vayan agregando los 
 	nuevos usuarios porque sino va a repetir los datos */
     querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
-        console.log(`${doc.id} => ${doc.data().name}`);
         //es para que jale la data de c/ usuario y la imprima en pantalla
-        tableAdopt.innerHTML += `
+        table.innerHTML += `
         <tr>
         <td><img class = "pictureAdopt" src = "${doc.data().location}"></td><br>
         <td>${doc.data().who}</td><br>
@@ -247,12 +241,11 @@ cambio en la base de datos, lo refleja en la página */
         <td>Convive con otras mascotas: ${doc.data().details}</td><br>
         <td>Caracter: ${doc.data().features}</td><br>
         <td>Contacto: ${doc.data().contact}</td><br>
-        <button  onclick="ConfirmDelete('${doc.id}')">Eliminar</button>
-        <div class= "likeCount"><button  id='${doc.id}' onclick="addLikes('${doc.id}', '${doc.data().like}')">Like</button>
-        <td><button class="btnsWarning" onclick= "editAdoptionPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
+        <button  class = "hidden" onclick="ConfirmDelete('${doc.id}')">Eliminar</button>
+        <div class= " likeCount">< class = "hidden" button  id='${doc.id}' onclick="addLikes('${doc.id}', '${doc.data().like}')">Like</button>
+        <td><button class="btnsWarning hidden" onclick= "editAdoptionPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
         </tr> `;
     });
-    console.log(document.querySelector(".likeCount"));
 });
 }
 
@@ -348,7 +341,9 @@ function eliminateAdopt(id){
 
 function showAdoptionPets (){
   onNavItemClick("/adoptionPets").then(()=>{
-    printAdoptionPets();
+let table = document.querySelector(".printInfoAdption"); //es donde se va imprimir la info de los usuarios
+
+    printAdoptionPets(table);
     document.querySelector(".adoptionForm").style.display="none";
     document.querySelector("#adoptionForm").style.display="block";
   });

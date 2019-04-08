@@ -75,3 +75,31 @@ const endSesion =()=>{
 }
 document.querySelector(".btnLogOut").addEventListener("click", endSesion);
 
+const homePage=()=>{
+  let postArray=[];
+  console.log (postArray);
+  onNavItemClick(`/home`).then(function(){
+ let mypost=document.querySelector(".posts");
+ mypost.innerHTML = "";
+  db.collection("lostsPets").onSnapshot((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      printLostPets(mypost);
+      postArray.push(doc);
+    });
+  });
+  db.collection("adoptionPets").onSnapshot((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      printAdoptionPets(mypost);
+      postArray.push(doc);
+    });
+  });
+  }).then(function(){
+    setTimeout(function(){
+     let hidenButtons= document.querySelectorAll(".hidden");
+     hidenButtons.forEach(function(element) {
+      element.style.display= "none";
+     });
+  },100)
+  })
+}
+

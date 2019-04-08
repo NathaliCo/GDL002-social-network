@@ -13,7 +13,6 @@ function firebaseNewAccount () {
          modal(errors);
          console.log("error createacount");
          // ...
-    
        });
     }
     

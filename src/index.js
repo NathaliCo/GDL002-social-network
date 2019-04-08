@@ -44,7 +44,8 @@ const adoptionForm= () =>{
 showLostPet=()=>{
   onNavItemClick("/lostPet").then(
     () => {
-      printLostPets();
+let table = document.querySelector(".printInfo"); //es donde se va imprimir la info de los usuarios
+      printLostPets(table);
       document.querySelector(".lostForm").style.display="none";
       document.querySelector("#lostForm").style.display="block";
     });

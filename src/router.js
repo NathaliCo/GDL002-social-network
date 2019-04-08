@@ -9,6 +9,7 @@ let routes = {
     '/adoptionPets':`./pages/adoptionPets.html`,
     '/postAdoptionPets':`./pages/postAdoptionPets.html`,
     '/help':`./help.html`,
+    '/home': `./pages/home.html`,
   };
 
   const fetchContent = (url) => fetch(url)

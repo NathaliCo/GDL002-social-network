@@ -12,13 +12,13 @@ const socialNetwork = {
     savePostAdoption:savePostAdoption,
     showHelp:showHelp,
     goWelcomePage:goWelcomePage,
+    homePage:homePage,
   };
   
   
   function buttons ()  {
   
     const allButtons = document.querySelectorAll(".typeButton");
-    console.log(allButtons);
     for (let i = 0; i < allButtons.length; i++) {
       if (window.location.pathname == "/logInPage" || window.location.pathname == "/createAccount") {
   
