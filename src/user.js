@@ -110,7 +110,7 @@ function firebaseNewAccount () {
        }
      }
     
-     const sesionIniciada = () => {
+     const sesionStarted = () => {
       user = firebase.auth().currentUser;
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -129,4 +129,4 @@ function firebaseNewAccount () {
         }
       });
     }
-    sesionIniciada();
+    sesionStarted();
