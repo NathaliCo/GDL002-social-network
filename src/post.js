@@ -131,7 +131,7 @@ cambio en la base de datos, lo refleja en la página */
 
         //es para que jale la data de c/ usuario y la imprima en pantalla
         table.innerHTML += `
-        <tr><br>
+        <div class = "table"><tr><br>
       <td><img class = "picture" src = "${doc.data().location}"></td><br>
         <td> ${doc.data().who}</td><br>
         <td>Nombre: ${doc.data().name}</td><br>
@@ -141,9 +141,9 @@ cambio en la base de datos, lo refleja en la página */
         <td>Señas particulares: ${doc.data().features}</td><br>
         <td>Contacto: ${doc.data().contact}</td><br>
         <td><button class="btnsWarning hidden" onclick= "editLostPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
-        <button class= "hidden" onclick="ConfirmDeleteLostPet('${doc.id}')">Eliminar</button>
+        <button class= "hidden" onclick="ConfirmDeleteLostPet('${doc.id}')">Eliminar</button><br>
         
-        </tr> `;
+        </tr> </div>`;
     });
 });
 }
@@ -233,7 +233,8 @@ cambio en la base de datos, lo refleja en la página */
     querySnapshot.forEach((doc) => { //es el ciclo que se va repitiendo por c/u de los objetos creados
         //es para que jale la data de c/ usuario y la imprima en pantalla
         table.innerHTML += `
-        <tr>
+        <div class = "table">
+        <tr><br>
         <td><img class = "pictureAdopt" src = "${doc.data().location}"></td><br>
         <td>${doc.data().who}</td><br>
         <td>Nombre: ${doc.data().name}</td><br>
@@ -242,9 +243,9 @@ cambio en la base de datos, lo refleja en la página */
         <td>Caracter: ${doc.data().features}</td><br>
         <td>Contacto: ${doc.data().contact}</td><br>
         <button  class = "hidden" onclick="ConfirmDelete('${doc.id}')">Eliminar</button>
-        <div class= " likeCount">< class = "hidden" button  id='${doc.id}' onclick="addLikes('${doc.id}', '${doc.data().like}')">Like</button>
+        <div class= " likeCount"><button  class = "hidden"  id='${doc.id}' onclick="addLikes('${doc.id}', '${doc.data().like}')">Like</button>
         <td><button class="btnsWarning hidden" onclick= "editAdoptionPost('${doc.id}', '${doc.data().name}', '${doc.data().date}', '${doc.data().description}', '${doc.data().details}', '${doc.data().features}', '${doc.data().contact}')">Editar</button></td><br>
-        </tr> `;
+        </tr> <br></div>` ;
     });
 });
 }

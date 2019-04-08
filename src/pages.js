@@ -79,27 +79,29 @@ const homePage=()=>{
   let postArray=[];
   console.log (postArray);
   onNavItemClick(`/home`).then(function(){
- let mypost=document.querySelector(".posts");
- mypost.innerHTML = "";
+ let mypostLost=document.querySelector(".postsLost"); 
+ let mypostAdopt=document.querySelector(".postsAdopt");
+ mypostLost.innerHTML = "";
+ mypostAdopt.innerHTML = "";
   db.collection("lostsPets").onSnapshot((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      printLostPets(mypost);
+      printLostPets(mypostLost);
       postArray.push(doc);
     });
   });
   db.collection("adoptionPets").onSnapshot((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-      printAdoptionPets(mypost);
+      printAdoptionPets(mypostAdopt);
       postArray.push(doc);
     });
   });
-  }).then(function(){
+  })/*.then(function(){
     setTimeout(function(){
      let hidenButtons= document.querySelectorAll(".hidden");
      hidenButtons.forEach(function(element) {
       element.style.display= "none";
      });
   },100)
-  })
+  })*/
 }
 

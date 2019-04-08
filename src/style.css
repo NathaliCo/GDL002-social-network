@@ -11,10 +11,9 @@ body{
     background-position: center center;
     height: 100%;
     width: 100%;
-    /* background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    position: absolute; */
+    align-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 ul {
@@ -333,3 +332,13 @@ padding: auto;
       width: 20rem;
       height: auto;
     }
+
+    #firstContent, #secondContent{
+      margin-bottom: 5rem;
+      
+    }
+    .typeButton, .table{
+      margin-left: auto;
+      margin-right: auto;
+    }
+   
