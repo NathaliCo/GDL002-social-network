@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Pet Patrol</title>
+  <title>Paws</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Fuentes de Google Fonts -->
   <!-- <link href="https//fonts.googleapis.com/css?family=Lobster:400" rel="stylesheet" type="text/css">  -->
@@ -17,8 +16,14 @@
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
   <link rel="stylesheet" type="text/css" media="screen" href="index.css">
  <script>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+  
+  <script>
+
     (function(){
       var redirect = sessionStorage.redirect;
       delete sessionStorage.redirect;
@@ -32,12 +37,12 @@
 <body>
   <header class="firstHeader">
     <div>
-      <a href="#" class="btnHome"><img src="./images/home.png" class="homeBtn"></a>
-      <p>Pet patrol</p>
+      <img alt = "home" src="./images/home.png" class="btnHome homeBtn typeButton" data-next="goWelcomePage">
+      <h2>Paws</h2>
     </div>
   </header>
   <main>
-
+  
     <section class="secondHeader">
       <input type="checkbox" class="checkbox" id="menu-toogle" />
       <label for="menu-toogle" class="menu-toogle"></label>
@@ -45,34 +50,12 @@
         <a href="#" class="nav__item current">Mi perfil</a>
         <a href="#" class="nav__item btnLogOut">Cerrar sesión</a>
       </nav>
-      <p>Pet patrol</p>
+      <h1>Paws</h1>
     </section>
 
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Atención</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
-          </div>
-        </div>
-      </div>
+    <div id="firstContent">
+       
     </div>
-
-
-
-    <div id="firstContent"></div>
     <div id="secondContent"></div>
 
     <footer class="firstFooter">
@@ -80,7 +63,8 @@
         <p>¿Quiénes Somos?</p>
       </a>
     </footer>
-
+<div id="img"></div>
+<div id="adoptImg"></div>
     <!-- publicaciones 
 
 <section class = "profile">
@@ -92,13 +76,13 @@
   <input type = "text" class = "ageUser">
   <button class= "btnSave">Actualizar</button>
 </section>
-
-</main> -->
+-->
+</main> 
     <section class="secondFooter">
-      <button class="typeButton"> <img src="./images/home.png" class="SecondHomeBtn"></button>
-      <button> <img class="typeButton" id ="showFormLostPet" data-next = "showFormLostPet"  src="./images/lost.png" class="lostBtn"></button>
-      <button class="typeButton"> <img src="./images/adopt.png" class="adoptBtn"></button>
-      <button class="typeButton"> <img src="./images/help.png" class="helpBtn"></button>
+      <button > <img alt= "home" src="./images/home.png" class=" typeButton SecondHomeBtn" data-next = "homePage" id = "homePage"></button>
+      <button> <img alt = "Lost Pets" class="typeButton lostBtn" id ="showLostPet" data-next = "showLostPet"  src="./images/lost.png" ></button>
+      <button > <img alt = "Adoption Pets" class="typeButton adoptBtn" src="./images/adopt.png" id = "showAdoptionPets" data-next ="showAdoptionPets" ></button>
+      <button > <img alt ="Help" class="typeButton helpBtn" id = "showHelp" data-next = "showHelp" src="./images/help.png" ></button>
     </section>
 
     <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
@@ -121,9 +105,16 @@
     <script src="firebaseApp.js"></script>
     <script src="firebaseFunctions.js"></script>
     <script src="index.js"></script>
+    <script src=user.js></script>
+    <script src = "post.js"></script>
     <script src="pages.js"></script>
-
+    <script src = "router.js"></script>
+    <script src = "buttonsAddEventListeners.js"></script>
 
 </body>
 
+
 </html>
+
+</html>
+

@@ -11,10 +11,9 @@ body{
     background-position: center center;
     height: 100%;
     width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    position: absolute;
+    align-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 ul {
@@ -308,4 +307,38 @@ padding: auto;
         left:208px;
         position:fixed; /*Fijamos la hamburgues para que se desplace junto con el menú*/
       }
-  
+      input[type="text"]{
+        width:100%;
+        display:block;
+        font-size: 15px;
+    }
+    
+    label.upload-group{
+      width: 100px;
+      height: 40px;
+      text-align: center;
+      background-color: red;
+      padding: 5 5 5 5;
+    }
+    #img{
+      display:none;
+    }
+    
+    #adoptImg{
+      display:none;
+    }
+
+    .picture, .pictureAdopt{
+      width: 20rem;
+      height: auto;
+    }
+
+    #firstContent, #secondContent{
+      margin-bottom: 5rem;
+      
+    }
+    .typeButton, .table{
+      margin-left: auto;
+      margin-right: auto;
+    }
+   
