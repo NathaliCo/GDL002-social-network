@@ -18,5 +18,8 @@
   "homepage": "https://github.com/Nathalis/GDL002-social-network#readme",
   "devDependencies": {
     "jest": "^24.7.1"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.2.0"
   }
 }

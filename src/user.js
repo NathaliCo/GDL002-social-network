@@ -127,6 +127,7 @@ const sesionStarted = () => {
                 // No user is signed in.
             }
         }
+
     });
 }
 sesionStarted();

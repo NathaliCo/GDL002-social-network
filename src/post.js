@@ -375,3 +375,4 @@ function addLikes(id, likes) {
       console.error('Error updating document: ', error);
     });
 }
+
