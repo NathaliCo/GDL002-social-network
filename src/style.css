@@ -117,13 +117,6 @@ input {
     background-color: rgb(0, 153, 135);
 }
 
-.createAccountPage {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .homeBtn {
     width: 4rem;
     position: absolute;
@@ -335,10 +328,6 @@ a {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
-.loginPage {
-    text-align: center;
-}
-
 
 /*Estos son los estilos que le dan la funcionalidad al menú*/
 
@@ -369,7 +358,6 @@ a {
 }
 
 input[type="text"] {
-    display: block;
     font-size: 15px;
 }
 
