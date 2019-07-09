@@ -129,4 +129,8 @@ function firebaseNewAccount () {
         }
       });
     }
+<<<<<<< HEAD
     sesionStarted();
+=======
+    sesionStarted();
+>>>>>>> 8f8e8c02525e8507d6ac2a037b1aae1c9b9a2400
