@@ -1,13 +1,5 @@
-
-
- 
-
-
-
-
-
 // //Publicaciones
-  
+
 //   // Initialize Cloud Firestore through Firebase
 //   var db = firebase.firestore();
 
@@ -68,30 +60,30 @@
 
 
 
-function editLostpost(id){
+function editLostpost(id) {
 
-  document.querySelector(".name").value = name; 
-	document.querySelector(".date").value = date;
-	document.querySelector(".description").value = description;
-	document.querySelector(".details").value = details;
-	document.querySelector(".features").value = features;
-  document.querySelector(".contact").value = contact;
-  
-  var washingtonRef = db.collection("postLost").doc(id);
-// Set the "capital" field of the city 'DC'
-return washingtonRef.update({
-  name: name,
-  date: date,
-  description: description,
-  details: details,
-  features: features,
-  contact: contact, 
-})
-.then(function() {
-    console.log("Document successfully updated!");
-})
-.catch(function(error) {
-    // The document probably doesn't exist.
-    console.error("Error updating document: ", error);
-});
+    document.querySelector(".name").value = name;
+    document.querySelector(".date").value = date;
+    document.querySelector(".description").value = description;
+    document.querySelector(".details").value = details;
+    document.querySelector(".features").value = features;
+    document.querySelector(".contact").value = contact;
+
+    var washingtonRef = db.collection("postLost").doc(id);
+    // Set the "capital" field of the city 'DC'
+    return washingtonRef.update({
+            name: name,
+            date: date,
+            description: description,
+            details: details,
+            features: features,
+            contact: contact,
+        })
+        .then(function() {
+            console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
 }
