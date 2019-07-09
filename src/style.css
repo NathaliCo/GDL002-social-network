@@ -99,6 +99,10 @@ input {
     position: fixed;
 }
 
+.form {
+    text-align: center;
+}
+
 .secondFooter button {
     background-color: #00E1C6;
     box-shadow: none;
